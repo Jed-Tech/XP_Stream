@@ -9,7 +9,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.tomorrow_skies.xp_stream.fabric.XpStreamFabricMod"
+      "com.jedtech.xp_stream.fabric.XpStreamFabricMod"
     ]
   },
   "mixins": [

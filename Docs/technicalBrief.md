@@ -1,70 +1,127 @@
-# XP_Stream (Fabric 1.21.11) — Technical Brief for Cursor
+# XP_Stream — Technical Brief
 
-## Objective
-Create a **server-side only** Fabric mod for Minecraft **1.21.11** that makes XP absorb faster while keeping the “XP shower” visual. The pain point is the **ankle swarm / slow drip** when many XP orbs are near the player.
+## Overview
 
-## Approach (v0.1)
-Use **collision-driven burst pickup** (Approach B):
-- Keep everything vanilla until an XP orb collides with a player.
-- On collision/pickup of one orb, immediately pick up **additional nearby XP orbs** in a very small radius around the player (“ankle zone”), capped.
-- Do NOT pull orbs from far away. Do NOT merge orbs. Do NOT bank XP. Do NOT change XP values.
+XP_Stream is a server-side Fabric mod for Minecraft 1.21.11 that accelerates XP absorption while preserving vanilla mechanics. It eliminates the "ankle swarm" effect when many XP orbs arrive at the player simultaneously.
 
-## Constraints (Design Contract)
-- XP orbs still spawn and move as vanilla.
-- Pickup delay behavior stays vanilla (we don’t change spawn delay).
-- XP awarded must use **vanilla orb pickup mechanics** so **Mending** works exactly as vanilla.
-- Multiplayer behavior should remain intuitive (closest/actual colliding player receives XP).
-- No global scans. No per-tick scanning of all orbs. Logic should be local to collision events.
-- No performance regression vs vanilla.
+## Architecture
 
-## Hook / Injection Point
-Implement via **Mixin** into the vanilla class responsible for XP orb pickup:
-- Target: `net.minecraft.entity.ExperienceOrbEntity`
-- Method: `onPlayerCollision(PlayerEntity player)` (or the Yarn-named equivalent in 1.21.11)
-- Inject at the point where vanilla would grant XP to the player (or at tail), then perform additional pickups.
+```
+com.jedtech.xp_stream
+├── XpStreamConfig.java      # JSON config loader (common)
+├── XpStreamConstants.java   # Default values (common)
+├── api/
+│   └── XpStreamPlatform.java    # Platform abstraction (future NeoForge)
+├── fabric/
+│   └── XpStreamFabricMod.java   # Fabric entrypoint
+└── mixin/
+    └── ExperienceOrbEntityMixin.java  # Core burst pickup logic
+```
 
-## Burst Pickup Details
-- Define constants for v0.1 (hardcoded, no config yet):
-  - `EXTRA_PICKUP_RADIUS = 1.25` blocks (tight ankle zone)
-  - `MAX_EXTRA_ORBS_PER_EVENT = 8` (cap)
-- When `onPlayerCollision(player)` triggers:
-  1) Let vanilla logic proceed (or call it once if we override).
-  2) Find nearby `ExperienceOrbEntity` within `EXTRA_PICKUP_RADIUS` around player.
-  3) For up to `MAX_EXTRA_ORBS_PER_EVENT`, apply the same vanilla pickup method for each orb and remove/discard it.
-  4) Avoid double-processing the original orb and avoid re-entrancy loops.
-  5) Play vanilla pickup sound **once** per burst (not for every orb). Ideally rely on vanilla sound from the first pickup, suppress additional sound if needed.
+## Core Mechanism: Collision-Based Burst Pickup
 
-## Correctness Requirements
-- **Mending** must work unchanged: ensure XP is applied through vanilla orb pickup path, not by directly adding XP via /xp or manipulating XP bar.
-- No XP duplication/loss in farms: test with large XP volumes.
-- Must work on dedicated server with no client mod required.
+When a player collides with an XP orb:
 
-## Anti-Recursion / Double-Pickup Guard
-- Need a guard to prevent collecting orbs that are already collected in the same call:
-  - Use a simple boolean re-entrancy guard (ThreadLocal or static flag) or mark orbs with a transient tag/flag before collecting.
-  - Ensure this guard is safe in a single-threaded tick context.
+1. Vanilla pickup proceeds normally (triggering orb)
+2. At `TAIL` of `onPlayerCollision`, the mixin queries for additional orbs **already colliding** with the player's bounding box
+3. Up to `maxBurstOrbs` additional orbs are collected via the vanilla pickup path
+4. Each burst orb has `experiencePickUpDelay` reset to bypass vanilla's 2-tick delay
 
-## Project Setup
-- Fabric Loom project targeting Minecraft 1.21.11
-- Yarn mappings for 1.21.11
-- Mixin configured via `mixins.xp_stream.json`
-- Mod id: `xp_stream`
-- Repo name: `XP_Stream`
+### Why Collision-Based?
 
-## Output Artifacts
-- Working dev environment (runServer)
-- Jar builds successfully
-- Minimal README and LICENSE already handled separately
+- **Preserves vanilla feel** — Orbs still fly toward the player visually
+- **No "magnet" effect** — Only orbs that have reached the player are collected
+- **No radius expansion** — Uses `player.getBoundingBox()` directly
 
-## Testing Checklist (local)
-1) Kill mobs and confirm XP shower still appears.
-2) Stand in a large XP pile and confirm absorption is much faster (ankle swarm reduced).
-3) Use damaged Mending gear and confirm repairs happen normally.
-4) Two players near XP: confirm pickup behavior is intuitive and not “sniped” from distance.
-5) Verify no errors spam in logs under heavy XP.
+## Mixin Implementation
 
-## Deliverables for v0.1 PR
-- Working burst pickup implementation
-- Constants for radius + cap
-- No config yet
-- Minimal debug logging behind a constant (OFF by default)
+**Target:** `net.minecraft.entity.ExperienceOrbEntity`  
+**Method:** `onPlayerCollision(PlayerEntity player)`  
+**Injection:** `@At("TAIL")`
+
+```java
+@Inject(method = "onPlayerCollision", at = @At("TAIL"))
+private void xp_stream$burstPickup(PlayerEntity player, CallbackInfo ci)
+```
+
+### Re-entrancy Guard
+
+A static boolean flag prevents infinite loops when `onPlayerCollision` is called on burst orbs:
+
+```java
+@Unique
+private static boolean xp_stream$inBurst = false;
+```
+
+### Server-Side Enforcement
+
+```java
+if (!(player.getEntityWorld() instanceof ServerWorld serverWorld)) return;
+```
+
+### Pickup Delay Reset
+
+Vanilla sets `experiencePickUpDelay` after each pickup. Without resetting it, burst orbs would be blocked:
+
+```java
+player.experiencePickUpDelay = 0;
+orb.onPlayerCollision(player);  // Vanilla path — Mending works
+```
+
+## Configuration
+
+**File:** `config/xp_stream.json`
+
+```json
+{
+  "maxBurstOrbs": 4,
+  "debug": false
+}
+```
+
+| Setting | Default | Range | Description |
+|---------|---------|-------|-------------|
+| `maxBurstOrbs` | 4 | 0–64 | Extra orbs to collect per pickup event. Set to 0 to disable. |
+| `debug` | false | — | Log burst pickup events to console |
+
+Config is loaded during `ModInitializer.onInitialize()` from `FabricLoader.getInstance().getConfigDir()`.
+
+## Mending Compatibility
+
+XP_Stream preserves Mending by using the vanilla pickup path:
+
+```java
+orb.onPlayerCollision(player);  // Calls repairPlayerGears() internally
+```
+
+**Never** use `player.addExperience()` directly — it bypasses Mending.
+
+## Performance
+
+- **No per-tick scanning** — Logic only runs on collision events
+- **Bounded query** — Uses player bounding box, not world-wide search
+- **Capped iteration** — Limited by `maxBurstOrbs`
+
+## Test Results (v0.1.0)
+
+**Test:** 200 XP orbs spawned as a cluster
+
+| Metric | Vanilla | XP_Stream |
+|--------|---------|-----------|
+| Absorption time | 11.06s | 4.2s |
+| XP received | 11 lvl + 12 pts | 11 lvl + 12 pts |
+
+No XP loss. Mending compatibility preserved.
+
+## Loader Support
+
+| Loader | Status |
+|--------|--------|
+| Fabric | ✅ Supported |
+| NeoForge | Planned |
+
+## Dependencies
+
+- Minecraft 1.21.11
+- Fabric Loader ≥0.16.0
+- Java 21

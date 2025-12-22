@@ -22,6 +22,16 @@ loom {
     splitEnvironmentSourceSets()
 }
 
+// Include common module classes in the JAR
+jar {
+    from(project(":common").sourceSets.main.output)
+}
+
+// Also include in sources JAR
+sourcesJar {
+    from(project(":common").sourceSets.main.allSource)
+}
+
 processResources {
     inputs.property "version", project.version
     filesMatching("fabric.mod.json") {

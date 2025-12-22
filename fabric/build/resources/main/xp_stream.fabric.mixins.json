@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.tomorrow_skies.xp_stream.mixin",
+  "package": "com.jedtech.xp_stream.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "ExperienceOrbEntityMixin"

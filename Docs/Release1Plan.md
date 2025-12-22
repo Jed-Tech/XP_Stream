@@ -1,62 +1,74 @@
-## The Plan after Beta 1
-The following plan is a rough guide. The Actual plan followed will depend on the results of the Beta 1 release and the objectives achieved.
+# XP_Stream Release Plan
 
-## v0.2 — Stability & Edge Case Beta
+## v0.1.0 — Core Beta (Current)
 
-### Focus
-Harden the core behavior under real-world conditions.
+### Delivered
+- Collision-based burst pickup with configurable cap
+- JSON configuration (`maxBurstOrbs`, `debug`)
+- Mending compatibility via vanilla pickup path
+- Re-entrancy guard to prevent infinite loops
 
-### Additions
-- Defensive handling for:
-  - Large XP bursts (farms, grinders)
-  - Multiple players near the same XP
-  - Repeated pickup events in the same tick
-- Clear internal limits to prevent runaway behavior
-- Optional debug logging for troubleshooting
+### Test Results
 
-### Goals
-- Stable behavior in high-XP environments
-- Predictable multiplayer outcomes
-- Clean server logs during normal play
+| Scenario | Vanilla | XP_Stream | Speedup |
+|----------|---------|-----------|---------|
+| 1 orb/tick × 200 ticks | 10.86s | 1.06s | ~10x |
+| 200 orbs instant | ~20s+ | 4.2s | ~5x |
 
-### Success Criteria
-- No reports of inconsistent XP pickup
-- No multiplayer complaints about “stolen” XP
-- Behavior feels consistent across environments
+- XP integrity confirmed (11 levels + 12 points in all tests)
+- No XP loss observed
+
+### Known Limitations
+- Single-player tested only
+- Mending repair not explicitly verified (assumed via vanilla path)
 
 ---
 
-## v0.3 — Optional Configuration Beta
+## v0.2 — Multiplayer & Edge Case Beta
 
 ### Focus
-Provide minimal admin control without expanding scope.
+Verify behavior in real-world multiplayer and high-stress scenarios.
 
-### Additions
-- Simple configuration options (e.g. enable/disable, small tuning values)
-- Sensible defaults that require no configuration
+### Testing Goals
+- [ ] Multiple players near the same XP cluster
+- [ ] Explicit Mending repair verification
+- [ ] Sustained XP farm load (enderman farm, etc.)
+- [ ] Server performance impact with many players
 
-### Goals
-- Increase server admin confidence
-- Maintain drop-in usability
+### Possible Additions
+- Config option: `pickupRadiusExpansion` (if collision-only proves too tight)
+- Config option: `enableMod` toggle for server admins
+- Logging level control (info vs debug)
 
 ### Success Criteria
-- Defaults feel correct out of the box
-- Configuration changes behave as expected
-- No added complexity for typical users
+- No "stolen XP" complaints in multiplayer
+- Mending repair works identically to vanilla
+- Stable TPS under sustained XP load
 
 ---
 
-## v1.0 — Stable Release Criteria
+## v1.0 — Stable Release
 
-XP_Stream will be considered ready for **1.0** when:
+XP_Stream will be considered ready for 1.0 when:
 
-- Core XP absorption behavior is locked and well-understood
-- No major behavioral bugs remain
-- Documentation is finalized
-- The design philosophy is consistently upheld
-- Only bug fixes or non-breaking polish remain
+- [ ] Multiplayer edge cases verified
+- [ ] Mending explicitly tested and documented
+- [ ] No major behavioral bugs remain
+- [ ] Config options are finalized and documented
+- [ ] README and user documentation complete
 
-At 1.0, XP_Stream’s behavior becomes contractually stable.
+At 1.0, XP_Stream's behavior becomes contractually stable.
+Future changes will be bug fixes only until v2.0.
+
+---
+
+## Design Principles
+
+- **Preserve vanilla feel** — faster absorption, same mechanics
+- **No XP loss** — every orb awards full value
+- **Mending compatibility** — always use vanilla pickup path
+- **Minimal footprint** — no dependencies beyond Fabric Loader
+- **Configurable but sensible defaults** — works out of the box
 
 ---
 
@@ -65,6 +77,6 @@ At 1.0, XP_Stream’s behavior becomes contractually stable.
 During beta:
 - Player feedback is prioritized over feature requests
 - Any change that risks breaking vanilla feel is rejected
-- New ideas are deferred to a future major version
+- New ideas are deferred to v2.0+
 
 The goal of beta is confidence, not expansion.

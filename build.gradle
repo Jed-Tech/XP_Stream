@@ -25,3 +25,4 @@ subprojects {
         options.release = 21
     }
 }
+

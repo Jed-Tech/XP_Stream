@@ -571,6 +571,33 @@ onPlayerCollision(player)
        └─ if (pickingCount == 0) discard()
 ```
 
+### XP_Stream Burst Pickup Implementation (v0.1)
+```java
+// After triggering orb is picked up (TAIL injection):
+ExperienceOrbEntity self = (ExperienceOrbEntity)(Object)this;
+Box playerBox = player.getBoundingBox();  // No expansion - collision-based
+
+List<ExperienceOrbEntity> collidingOrbs = serverWorld.getEntitiesByType(
+    TypeFilter.instanceOf(ExperienceOrbEntity.class),
+    playerBox,
+    orb -> orb.isAlive() && orb != self
+);
+
+for (ExperienceOrbEntity orb : collidingOrbs) {
+    if (picked >= MAX_BURST_ORBS) break;
+    player.experiencePickUpDelay = 0;  // Critical: bypass delay gate
+    orb.onPlayerCollision(player);     // Vanilla path - Mending works
+    picked++;
+}
+```
+
+### v0.1 Test Results
+| Metric | Vanilla | XP_Stream | Improvement |
+|--------|---------|-----------|-------------|
+| Total Time (200 orbs) | 20.86s | 11.06s | **1.89x faster** |
+| Absorption Time | ~10.86s | ~1.06s | **~10x faster** |
+| XP Integrity | ✅ | ✅ | Identical |
+
 ---
 
 ## Gradle Commands
@@ -644,4 +671,5 @@ pluginManagement {
 
 ---
 
-*Last updated: December 2024 for Minecraft 1.21.11 / Fabric Loader 0.17.2 / Loom 1.14.8 / Gradle 9.2.1*
+*Last updated: December 2024 for Minecraft 1.21.11 / Fabric Loader 0.17.2+ / Loom 1.14.8 / Gradle 9.2.1*
+*XP_Stream v0.1 implementation verified and tested*

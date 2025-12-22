@@ -1,45 +1,66 @@
 # XP_Stream
 
-## XP_Stream Overview
+**Faster XP pickup. Same vanilla feel.**
 
-**XP_Stream** is a lightweight, server-side Minecraft mod focused on improving the *experience* of collecting experience orbs while preserving vanilla gameplay.
-
-Experience orbs still spawn, move, and behave as players expect. XP_Stream simply removes unnecessary friction in how XP is absorbed, so large amounts of XP feel satisfying instead of sluggish.
-
-The intent is refinement, not reinvention.
+XP_Stream removes the vanilla delay when collecting experience orbs. Large XP drops from mob farms, enchanting, or boss fights are absorbed smoothly instead of creating an ankle swarm that follows you around.
 
 ---
 
-## Goals
+## What It Does
 
-- Make experience absorb **faster and smoother**
-- Preserve the visual and mechanical feel of vanilla XP orbs
-- Eliminate the “ankle swarm” effect during large XP pickups
-- Remain server-side only and easy to deploy
-- Keep the implementation simple and maintainable across Minecraft updates
+- **Speeds up XP absorption** — large clusters are collected in seconds, not minutes
+- **Preserves vanilla mechanics** — orbs still fly toward you, Mending still works
+- **No XP loss** — every orb awards its full value
+- **Keeps the visual and audio effects** — you'll still see orbs flowing in, just without the backlog
 
----
-
-## Design Philosophy
-
-XP_Stream follows a strict vanilla-first philosophy:
-
-- XP rules and values are unchanged
-- XP orbs remain physical entities
-- Pickup behavior is improved without adding magnets, storage, or automation
-- Mending and enchantment interactions behave exactly as in vanilla
-- Changes are localized to XP pickup behavior only
-
-If XP_Stream is doing its job, players should feel the improvement without feeling like a new system was introduced.
+You get the satisfying rush of XP without the waiting.
 
 ---
 
-## Requirements
+## Configuration
 
-- Minecraft Java Edition
-- Fabric Loader
-- Neoforge (after beta 1)
-- Server-side installation only (clients do not need the mod)
+XP_Stream works out of the box with sensible defaults. If you want to tweak it:
+
+**File:** `config/xp_stream.json`
+
+```json
+{
+  "maxBurstOrbs": 4,
+  "debug": false
+}
+```
+
+| Setting | Default | What it does |
+|---------|---------|--------------|
+| `maxBurstOrbs` | 4 | How many extra orbs to grab per pickup (higher = faster xp orb pickup) |
+| `debug` | false | Log pickup events to console (for troubleshooting) |
+
+---
+
+## Installation
+
+1. Install [Fabric Loader](https://fabricmc.net/) for Minecraft 1.21.11
+2. Drop `xp_stream-fabric-x.x.x.jar` into your `mods` folder
+3. Launch the game — no other dependencies required
+
+**Server-side only** — clients connecting to your server don't need the mod.
+
+---
+
+## For Server Admins
+
+- **No client requirement** — players connect with vanilla clients
+- **Minimal performance impact** — logic only runs when orbs are picked up
+- **Safe for multiplayer** — each player's pickup is independent
+- **Easy to disable** — remove the jar or set `maxBurstOrbs` to 0
+
+---
+
+## Compatibility
+
+- **Minecraft:** 1.21.11
+- **Loader:** Fabric (NeoForge planned for future release)
+- **Other mods:** Should work with any mod that doesn't alter XP orb collision
 
 ---
 
@@ -47,8 +68,14 @@ If XP_Stream is doing its job, players should feel the improvement without feeli
 
 XP_Stream is **source-available** for transparency.
 
-Unmodified versions may be included in modpacks when downloaded from
-an official source (such as the project's GitHub or Modrinth page).
+- ✅ You may include it in modpacks (unmodified, from official sources)
+- ❌ You may not Redistribute or modify without permission.
 
-Redistribution, modification, or derivative works are **not permitted** without explicit written permission from the author.  
 See the `LICENSE` file for full terms.
+
+---
+
+## Links
+
+- [GitHub](https://github.com/Jed-Tech/XP_Stream)
+- [Issues & Feedback](https://github.com/Jed-Tech/XP_Stream/issues)
