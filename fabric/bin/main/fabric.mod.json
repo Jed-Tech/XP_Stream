@@ -5,7 +5,7 @@
   "name": "${mod_name}",
   "description": "Server-side XP pickup smoothing that keeps the vanilla orb feel.",
   "authors": ["Jeff E"],
-  "license": "All-Rights-Reserved",
+  "license": "CC-BY-NC-ND-4.0",
   "environment": "*",
   "entrypoints": {
     "main": [

@@ -1,34 +1,20 @@
+Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International
+
 Copyright (c) 2025 Jed-Tech
 
-All rights reserved.
+This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
 
-Permission is granted to view and study this source code for personal,
-educational, or reference purposes only.
+You are free to:
+  - Share — copy and redistribute the material in any medium or format
 
-### Allowed Use
+Under the following terms:
+  - Attribution — You must give appropriate credit, provide a link to the
+    license, and indicate if changes were made.
+  - NonCommercial — You may not use the material for commercial purposes.
+  - NoDerivatives — If you remix, transform, or build upon the material,
+    you may not distribute the modified material.
 
-You MAY:
-- Include unmodified copies of this software in Minecraft modpacks,
-  provided that the software is obtained from an official distribution
-  source and is not altered in any way.
+No additional restrictions — You may not apply legal terms or technological
+measures that legally restrict others from doing anything the license permits.
 
-Official distribution sources include:
-- The project's official GitHub releases
-- The project's official Modrinth page
-- Any other source explicitly designated by the author
-
-### Restrictions
-
-You may NOT:
-- Redistribute this software or its source code outside of modpacks
-- Rehost or mirror this software on other download sites
-- Publish modified versions or derivative works
-- Include modified versions in modpacks
-- Include this code in other projects or mods
-
-Use, modification, or redistribution of this software outside of the
-explicit permissions above requires prior written permission from the
-copyright holder.
-
-This software is provided "as is", without warranty of any kind,
-express or implied.
+Full license text: https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode

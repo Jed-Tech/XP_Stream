@@ -19,3 +19,4 @@ public final class XpStreamConstants {
      */
     public static final boolean DEFAULT_DEBUG = false;
 }
+

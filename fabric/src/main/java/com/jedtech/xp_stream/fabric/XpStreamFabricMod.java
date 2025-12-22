@@ -11,3 +11,4 @@ public final class XpStreamFabricMod implements ModInitializer {
         XpStreamConfig.load(FabricLoader.getInstance().getConfigDir());
     }
 }
+

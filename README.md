@@ -66,12 +66,14 @@ XP_Stream works out of the box with sensible defaults. If you want to tweak it:
 
 ## License
 
-XP_Stream is **source-available** for transparency.
+XP_Stream is licensed under **CC BY-NC-ND 4.0**.
 
-- ✅ You may include it in modpacks (unmodified, from official sources)
-- ❌ You may not Redistribute or modify without permission.
+- ✅ Share freely (including in modpacks)
+- ✅ Attribution required
+- ❌ No commercial use
+- ❌ No modifications or derivatives
 
-See the `LICENSE` file for full terms.
+See the [LICENSE](LICENSE) file or [Creative Commons](https://creativecommons.org/licenses/by-nc-nd/4.0/) for full terms.
 
 ---
 

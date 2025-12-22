@@ -7,3 +7,4 @@ package com.jedtech.xp_stream.api;
 public interface XpStreamPlatform {
     void logDebug(String message);
 }
+
