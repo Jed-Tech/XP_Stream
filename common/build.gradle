@@ -1,0 +1,10 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    // Keep common loader-agnostic.
+    // Do NOT depend on Fabric API or Fabric Loader here.
+    // (Optionally, you may depend on Minecraft mappings interfaces later,
+    //  but try to keep this module "pure logic + interfaces".)
+}

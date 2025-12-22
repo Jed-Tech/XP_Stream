@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "xp_stream",
+  "version": "0.1.0",
+  "name": "XP_Stream",
+  "description": "Server-side XP pickup smoothing that keeps the vanilla orb feel.",
+  "authors": ["Jeff E"],
+  "license": "All-Rights-Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.tomorrow_skies.xp_stream.fabric.XpStreamFabricMod"
+    ]
+  },
+  "mixins": [
+    "xp_stream.fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "1.21.11"
+  }
+}

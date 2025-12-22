@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.tomorrow_skies.xp_stream.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ExperienceOrbEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
