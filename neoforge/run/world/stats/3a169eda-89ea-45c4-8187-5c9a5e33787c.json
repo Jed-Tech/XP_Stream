@@ -1,0 +1,57 @@
+{
+  "stats": {
+    "minecraft:custom": {
+      "minecraft:time_since_rest": 34147,
+      "minecraft:walk_one_cm": 60015,
+      "minecraft:leave_game": 5,
+      "minecraft:mob_kills": 1,
+      "minecraft:damage_taken": 100,
+      "minecraft:damage_dealt": 40,
+      "minecraft:play_time": 34147,
+      "minecraft:jump": 103,
+      "minecraft:time_since_death": 34147,
+      "minecraft:drop": 6,
+      "minecraft:sprint_one_cm": 5910,
+      "minecraft:fall_one_cm": 1900,
+      "minecraft:total_world_time": 120171,
+      "minecraft:fly_one_cm": 1215,
+      "minecraft:crouch_one_cm": 746,
+      "minecraft:sneak_time": 1608,
+      "minecraft:climb_one_cm": 4026
+    },
+    "minecraft:picked_up": {
+      "minecraft:stone_pressure_plate": 1,
+      "minecraft:stone_button": 1,
+      "minecraft:oak_slab": 1,
+      "minecraft:birch_pressure_plate": 3,
+      "minecraft:jungle_planks": 2,
+      "minecraft:scaffolding": 7
+    },
+    "minecraft:mined": {
+      "minecraft:scaffolding": 3,
+      "minecraft:oak_slab": 1
+    },
+    "minecraft:dropped": {
+      "minecraft:jungle_planks": 2,
+      "minecraft:stone_pressure_plate": 1,
+      "minecraft:birch_pressure_plate": 3
+    },
+    "minecraft:used": {
+      "minecraft:stone_pressure_plate": 1,
+      "minecraft:jungle_planks": 1,
+      "minecraft:birch_pressure_plate": 1,
+      "minecraft:oak_pressure_plate": 3,
+      "minecraft:stone_button": 10,
+      "minecraft:birch_sign": 5,
+      "minecraft:redstone": 3,
+      "minecraft:scaffolding": 22,
+      "minecraft:target": 3,
+      "minecraft:oak_slab": 7,
+      "minecraft:command_block": 13
+    },
+    "minecraft:killed": {
+      "minecraft:slime": 1
+    }
+  },
+  "DataVersion": 4671
+}

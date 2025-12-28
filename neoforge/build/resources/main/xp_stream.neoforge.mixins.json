@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.jedtech.xp_stream.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ExperienceOrbMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

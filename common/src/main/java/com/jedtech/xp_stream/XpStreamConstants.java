@@ -12,11 +12,10 @@ public final class XpStreamConstants {
     /**
      * Default maximum orbs to burst-collect per pickup event.
      */
-    public static final int DEFAULT_MAX_BURST_ORBS = 4;
+    public static final int DEFAULT_MAX_BURST_ORBS = 6;
 
     /**
      * Default debug logging state.
      */
     public static final boolean DEFAULT_DEBUG = false;
 }
-

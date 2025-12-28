@@ -1,6 +1,8 @@
 # XP_Stream Release Plan
 
-## v0.1.0 — Core Beta (Current)
+## v0.1.0 — Core Beta (Completed)
+
+**Released:** Initial Fabric-only release with collision-based burst pickup.
 
 ### Delivered
 - Collision-based burst pickup with configurable cap
@@ -24,7 +26,26 @@
 
 ---
 
-## v0.2 — Multiplayer & Edge Case Beta
+### Delivered
+- ✅ NeoForge support (21.11.0-beta for MC 1.21.11)
+- ✅ Multi-loader architecture (Fabric + NeoForge)
+- ✅ Loader-specific mixins with shared logic
+- ✅ Tested on both platforms (2.5s absorption with maxBurstOrbs=6)
+
+---
+
+## v0.2.0 — Multi-Loader Release (Current)
+
+### Delivered
+- ✅ NeoForge support (21.11.0-beta for MC 1.21.11)
+- ✅ Multi-loader architecture (Fabric + NeoForge)
+- ✅ Loader-specific mixins with shared logic
+- ✅ Tested on both platforms (2.5s absorption with maxBurstOrbs=6)
+- ✅ Both JARs building successfully
+
+---
+
+## v0.3 — Multiplayer & Edge Case Beta (Planned)
 
 ### Focus
 Verify behavior in real-world multiplayer and high-stress scenarios.

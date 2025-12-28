@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "id": "xp_stream",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "name": "XP_Stream",
   "description": "Server-side XP pickup smoothing that keeps the vanilla orb feel.",
   "authors": ["Jeff E"],
-  "license": "All-Rights-Reserved",
+  "license": "CC-BY-NC-ND-4.0",
   "environment": "*",
   "entrypoints": {
     "main": [

@@ -1,0 +1,32 @@
+{
+  "stats": {
+    "minecraft:dropped": {
+      "minecraft:dirt": 7
+    },
+    "minecraft:used": {
+      "minecraft:golden_carrot": 2
+    },
+    "minecraft:custom": {
+      "minecraft:time_since_rest": 17363,
+      "minecraft:walk_one_cm": 17434,
+      "minecraft:leave_game": 1,
+      "minecraft:damage_taken": 250,
+      "minecraft:play_time": 17363,
+      "minecraft:jump": 63,
+      "minecraft:time_since_death": 17363,
+      "minecraft:drop": 7,
+      "minecraft:sprint_one_cm": 92,
+      "minecraft:fall_one_cm": 4450,
+      "minecraft:total_world_time": 17363,
+      "minecraft:fly_one_cm": 323,
+      "minecraft:climb_one_cm": 3534
+    },
+    "minecraft:mined": {
+      "minecraft:grass_block": 1
+    },
+    "minecraft:picked_up": {
+      "minecraft:dirt": 8
+    }
+  },
+  "DataVersion": 4671
+}

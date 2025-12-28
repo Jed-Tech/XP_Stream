@@ -8,3 +8,16 @@ public interface XpStreamPlatform {
     void logDebug(String message);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+

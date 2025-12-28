@@ -1,0 +1,67 @@
+plugins {
+    id 'net.neoforged.moddev' version "${moddevgradle_version}"
+    id 'maven-publish'
+}
+
+base {
+    archivesName = project.archives_base_name + "-neoforge"
+}
+
+neoForge {
+    version = project.neoforge_version
+    
+    runs {
+        // Define run configurations for development
+        client {
+            client()
+        }
+        server {
+            server()
+        }
+    }
+    
+    mods {
+        // Wire sourceSets.main to ModDevGradle so Minecraft classes are on compileClasspath
+        "${project.mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+dependencies {
+    implementation project(":common")
+    
+    // ModDevGradle automatically provides Minecraft and NeoForge dependencies
+    // No need to explicitly add them
+}
+
+// Include common module classes in the JAR
+jar {
+    from(project(":common").sourceSets.main.output)
+}
+
+// Also include in sources JAR
+sourcesJar {
+    from(project(":common").sourceSets.main.allSource)
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "neoforge_version", project.neoforge_version
+    inputs.property "minecraft_version", project.minecraft_version
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand "version": project.version,
+               "mod_id": project.mod_id,
+               "mod_name": project.mod_name,
+               "neoforge_version": project.neoforge_version,
+               "minecraft_version": project.minecraft_version
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}

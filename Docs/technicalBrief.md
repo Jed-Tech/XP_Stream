@@ -2,7 +2,7 @@
 
 ## Overview
 
-XP_Stream is a server-side Fabric mod for Minecraft 1.21.11 that accelerates XP absorption while preserving vanilla mechanics. It eliminates the "ankle swarm" effect when many XP orbs arrive at the player simultaneously.
+XP_Stream is a server-side multi-loader mod for Minecraft 1.21.11 that accelerates XP absorption while preserving vanilla mechanics. It eliminates the "ankle swarm" effect when many XP orbs arrive at the player simultaneously. Supports both Fabric and NeoForge.
 
 ## Architecture
 
@@ -11,11 +11,15 @@ com.jedtech.xp_stream
 ├── XpStreamConfig.java      # JSON config loader (common)
 ├── XpStreamConstants.java   # Default values (common)
 ├── api/
-│   └── XpStreamPlatform.java    # Platform abstraction (future NeoForge)
+│   └── XpStreamPlatform.java    # Platform abstraction (minimal)
 ├── fabric/
-│   └── XpStreamFabricMod.java   # Fabric entrypoint
-└── mixin/
-    └── ExperienceOrbEntityMixin.java  # Core burst pickup logic
+│   ├── XpStreamFabricMod.java   # Fabric entrypoint
+│   └── mixin/
+│       └── ExperienceOrbEntityMixin.java  # Fabric mixin (Yarn mappings)
+└── neoforge/
+    ├── XpStreamNeoForgeMod.java  # NeoForge entrypoint
+    └── mixin/
+        └── ExperienceOrbMixin.java  # NeoForge mixin (Mojmap mappings)
 ```
 
 ## Core Mechanism: Collision-Based Burst Pickup
@@ -35,14 +39,17 @@ When a player collides with an XP orb:
 
 ## Mixin Implementation
 
-**Target:** `net.minecraft.entity.ExperienceOrbEntity`  
-**Method:** `onPlayerCollision(PlayerEntity player)`  
-**Injection:** `@At("TAIL")`
+**Fabric (Yarn mappings):**
+- Target: `net.minecraft.entity.ExperienceOrbEntity`
+- Method: `onPlayerCollision(PlayerEntity player)`
+- Injection: `@At("TAIL")`
 
-```java
-@Inject(method = "onPlayerCollision", at = @At("TAIL"))
-private void xp_stream$burstPickup(PlayerEntity player, CallbackInfo ci)
-```
+**NeoForge (Mojmap mappings):**
+- Target: `net.minecraft.world.entity.ExperienceOrb`
+- Method: `playerTouch(Player player)`
+- Injection: `@At("TAIL")`
+
+Both mixins implement the same collision-based burst pickup logic, but use loader-specific mapping names.
 
 ### Re-entrancy Guard
 
@@ -74,17 +81,19 @@ orb.onPlayerCollision(player);  // Vanilla path — Mending works
 
 ```json
 {
-  "maxBurstOrbs": 4,
+  "maxBurstOrbs": 6,
   "debug": false
 }
 ```
 
 | Setting | Default | Range | Description |
 |---------|---------|-------|-------------|
-| `maxBurstOrbs` | 4 | 0–64 | Extra orbs to collect per pickup event. Set to 0 to disable. |
+| `maxBurstOrbs` | 6 | 0–64 | Extra orbs to collect per pickup event. Set to 0 to disable. |
 | `debug` | false | — | Log burst pickup events to console |
 
-Config is loaded during `ModInitializer.onInitialize()` from `FabricLoader.getInstance().getConfigDir()`.
+Config is loaded during mod initialization:
+- **Fabric:** `FabricLoader.getInstance().getConfigDir()`
+- **NeoForge:** `FMLPaths.CONFIGDIR.get()`
 
 ## Mending Compatibility
 
@@ -102,26 +111,31 @@ orb.onPlayerCollision(player);  // Calls repairPlayerGears() internally
 - **Bounded query** — Uses player bounding box, not world-wide search
 - **Capped iteration** — Limited by `maxBurstOrbs`
 
-## Test Results (v0.1.0)
+## Test Results
 
 **Test:** 200 XP orbs spawned as a cluster
 
-| Metric | Vanilla | XP_Stream |
-|--------|---------|-----------|
-| Absorption time | 11.06s | 4.2s |
-| XP received | 11 lvl + 12 pts | 11 lvl + 12 pts |
+| Metric | Vanilla | XP_Stream (maxBurstOrbs=4) | XP_Stream (maxBurstOrbs=6) |
+|--------|---------|----------------------------|----------------------------|
+| Absorption time | 11.06s | 4.2s | 2.5s |
+| XP received | 11 lvl + 12 pts | 11 lvl + 12 pts | 11 lvl + 12 pts |
 
-No XP loss. Mending compatibility preserved.
+**Verified on both loaders:**
+- ✅ Fabric: Tested and working
+- ✅ NeoForge: Tested and working (2.5s with maxBurstOrbs=6)
+
+No XP loss. Mending compatibility preserved on both platforms.
 
 ## Loader Support
 
-| Loader | Status |
-|--------|--------|
-| Fabric | ✅ Supported |
-| NeoForge | Planned |
+| Loader | Status | Version |
+|--------|--------|---------|
+| Fabric | ✅ Supported | 1.21.11 (Fabric Loader ≥0.16.0) |
+| NeoForge | ✅ Supported | 1.21.11 (NeoForge 21.11.0-beta) |
 
 ## Dependencies
 
 - Minecraft 1.21.11
-- Fabric Loader ≥0.16.0
+- Fabric Loader ≥0.16.0 (for Fabric version)
+- NeoForge 21.11.0-beta (for NeoForge version)
 - Java 21
