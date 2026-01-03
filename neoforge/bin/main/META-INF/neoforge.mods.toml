@@ -27,3 +27,4 @@ side = "BOTH"
 [[mixins]]
 config = "xp_stream.neoforge.mixins.json"
 environment = "*"
+
