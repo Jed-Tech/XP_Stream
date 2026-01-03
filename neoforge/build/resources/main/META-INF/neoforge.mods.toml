@@ -4,7 +4,7 @@ license = "CC-BY-NC-ND-4.0"
 
 [[mods]]
 modId = "xp_stream"
-version = "0.2.0"
+version = "0.2.1"
 displayName = "XP_Stream"
 description = "Server-side XP pickup smoothing that keeps the vanilla orb feel."
 authors = ["Jeff E"]
@@ -27,3 +27,4 @@ side = "BOTH"
 [[mixins]]
 config = "xp_stream.neoforge.mixins.json"
 environment = "*"
+
