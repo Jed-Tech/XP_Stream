@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "com/jedtech/xp_stream/mixin/ExperienceOrbEntityMixin": {
+      "onPlayerCollision": "Lnet/minecraft/class_1303;method_5694(Lnet/minecraft/class_1657;)V"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "com/jedtech/xp_stream/mixin/ExperienceOrbEntityMixin": {
+        "onPlayerCollision": "Lnet/minecraft/class_1303;method_5694(Lnet/minecraft/class_1657;)V"
+      }
+    }
+  }
+}

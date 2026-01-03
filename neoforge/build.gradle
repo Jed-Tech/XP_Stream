@@ -4,11 +4,11 @@ plugins {
 }
 
 base {
-    archivesName = project.archives_base_name + "-neoforge"
+    archivesName = project.archives_base_name + "-neoforge-1.21.1"
 }
 
 neoForge {
-    version = project.neoforge_version
+    version = project.neo_version
     
     runs {
         // Define run configurations for development
@@ -22,8 +22,10 @@ neoForge {
     
     mods {
         // Wire sourceSets.main to ModDevGradle so Minecraft classes are on compileClasspath
+        // Also include common module source set so classes are available at runtime
         "${project.mod_id}" {
             sourceSet sourceSets.main
+            sourceSet project(":common").sourceSets.main
         }
     }
 }
@@ -47,14 +49,22 @@ sourcesJar {
 
 processResources {
     inputs.property "version", project.version
-    inputs.property "neoforge_version", project.neoforge_version
+    inputs.property "neo_version", project.neo_version
+    inputs.property "neo_version_range", project.neo_version_range
     inputs.property "minecraft_version", project.minecraft_version
+    inputs.property "minecraft_version_range", project.minecraft_version_range
+    inputs.property "loader_version_range", project.loader_version_range
+    inputs.property "mod_id", project.mod_id
+    inputs.property "mod_name", project.mod_name
     filesMatching("META-INF/neoforge.mods.toml") {
         expand "version": project.version,
                "mod_id": project.mod_id,
                "mod_name": project.mod_name,
-               "neoforge_version": project.neoforge_version,
-               "minecraft_version": project.minecraft_version
+               "neo_version": project.neo_version,
+               "neo_version_range": project.neo_version_range,
+               "minecraft_version": project.minecraft_version,
+               "minecraft_version_range": project.minecraft_version_range,
+               "loader_version_range": project.loader_version_range
     }
 }
 

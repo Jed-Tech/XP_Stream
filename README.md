@@ -25,27 +25,23 @@ XP_Stream works out of the box with sensible defaults. If you want to tweak it:
 
 ```json
 {
-  "maxBurstOrbs": 6,
+  "maxBurstOrbs": 4,
   "debug": false
 }
 ```
 
 | Setting | Default | What it does |
 |---------|---------|--------------|
-| `maxBurstOrbs` | 6 | How many extra orbs to grab per pickup (higher = faster xp orb pickup) |
+| `maxBurstOrbs` | 4 | How many extra orbs to grab per pickup (higher = faster xp orb pickup) |
 | `debug` | false | Log pickup events to console (for troubleshooting) |
 
 ---
 
 ## Installation
 
-**Fabric:**
 1. Install [Fabric Loader](https://fabricmc.net/) for Minecraft 1.21.11
 2. Drop `xp_stream-fabric-x.x.x.jar` into your `mods` folder
-
-**NeoForge:**
-1. Install [NeoForge](https://neoforged.net/) 21.11.0-beta for Minecraft 1.21.11
-2. Drop `xp_stream-neoforge-x.x.x.jar` into your `mods` folder
+3. Launch the game — no other dependencies required
 
 **Server-side only** — clients connecting to your server don't need the mod.
 
@@ -63,23 +59,19 @@ XP_Stream works out of the box with sensible defaults. If you want to tweak it:
 ## Compatibility
 
 - **Minecraft:** 1.21.11
-- **Loaders:** 
-  - ✅ Fabric (Fabric Loader ≥0.16.0)
-  - ✅ NeoForge (NeoForge 21.11.0-beta)
+- **Loader:** Fabric (NeoForge planned for future release)
 - **Other mods:** Should work with any mod that doesn't alter XP orb collision
 
 ---
 
 ## License
 
-XP_Stream is licensed under **CC BY-NC-ND 4.0**.
+XP_Stream is **source-available** for transparency.
 
-- ✅ Share freely (including in modpacks)
-- ✅ Attribution required
-- ❌ No commercial use
-- ❌ No modifications or derivatives
+- ✅ You may include it in modpacks (unmodified, from official sources)
+- ❌ You may not Redistribute or modify without permission.
 
-See the [LICENSE](LICENSE) file or [Creative Commons](https://creativecommons.org/licenses/by-nc-nd/4.0/) for full terms.
+See the `LICENSE` file for full terms.
 
 ---
 
@@ -87,4 +79,3 @@ See the [LICENSE](LICENSE) file or [Creative Commons](https://creativecommons.or
 
 - [GitHub](https://github.com/Jed-Tech/XP_Stream)
 - [Issues & Feedback](https://github.com/Jed-Tech/XP_Stream/issues)
-- [Changelog](CHANGELOG.md) — Version history and changes

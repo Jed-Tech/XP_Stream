@@ -3,7 +3,7 @@
     <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="neoforge"></stringAttribute>
     <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="net.neoforged.devlaunch.Main"></stringAttribute>
     <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value=" @C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\build\\moddev\\serverRunProgramArgs.txt"></stringAttribute>
-    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value=" @C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\build\\moddev\\serverRunVmArgs.txt -Dfml.modFolders=xp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\bin\\main"></stringAttribute>
+    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value=" @C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\build\\moddev\\serverRunVmArgs.txt -Dfml.modFolders=xp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\bin\\main;xp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\common\\bin\\main"></stringAttribute>
     <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="C:\Users\jedde\GithubRepos\Minecraft\XP_Stream\neoforge\run"></stringAttribute>
     <booleanAttribute key="org.eclipse.jdt.launching.STOP_IN_MAIN" value="false"></booleanAttribute>
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_ATTR_USE_ARGFILE" value="false"></booleanAttribute>

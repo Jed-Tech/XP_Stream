@@ -11,14 +11,3 @@ public final class XpStreamNeoForgeMod {
         XpStreamConfig.load(FMLPaths.CONFIGDIR.get());
     }
 }
-
-
-
-
-
-
-
-
-
-
-

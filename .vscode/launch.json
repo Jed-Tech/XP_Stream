@@ -16,7 +16,7 @@
       ],
       "vmArgs": [
         "@C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\build\\moddev\\clientRunVmArgs.txt",
-        "-Dfml.modFolders\u003dxp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\bin\\main"
+        "-Dfml.modFolders\u003dxp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\bin\\main;xp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\common\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\neoforge\\run",
       "env": {},
@@ -38,7 +38,7 @@
       ],
       "vmArgs": [
         "@C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\build\\moddev\\serverRunVmArgs.txt",
-        "-Dfml.modFolders\u003dxp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\bin\\main"
+        "-Dfml.modFolders\u003dxp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\bin\\main;xp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\common\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\neoforge\\run",
       "env": {},

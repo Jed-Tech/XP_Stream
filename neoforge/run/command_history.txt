@@ -1,0 +1,13 @@
+/gamerule doMobSpawning false
+/give @s minecraft:command_block
+/scoreboard objectives add xpTimer dummy
+/gamemode survival
+/give @p minecraft:diamond_sword{Enchantments:[{id:"minecraft:mending",lvl:1}],Damage:100} 1
+/give @p minecraft:diamond_sword[damage=100]{Enchantments:[{id:"minecraft:mending",lvl:1}]} 1
+/give @p minecraft:diamond_sword{Enchantments:[{id:"minecraft:mending",lvl:1}],Damage:100}
+/give @p minecraft:diamond_sword
+/give @p minecraft:diamond_sword{Enchantments:[{id:"minecraft:mending",lvl:1}]}
+/enchant @s minecraft:mending
+/data modify entity @s SelectedItem.tag.Damage set value 100
+/give @p diamond_sword[damage=780,enchantments={levels:{mending:1}}]
+/give @s minecraft:scaffolding 20

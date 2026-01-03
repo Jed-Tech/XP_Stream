@@ -393,9 +393,9 @@ Reference: [NeoForge Getting Started](https://docs.neoforged.net/docs/gettingsta
 
 ## Timeline
 
-**NeoForge support completed December 2024.**
+**NeoForge support is v0.2 work.**
 
-Originally planned for v0.2, but implemented and tested successfully alongside Fabric v0.1. Both loaders are now production-ready.
+Do not block v0.1 Fabric release on NeoForge. Ship Fabric first, then add NeoForge.
 
 ---
 
@@ -422,12 +422,8 @@ This keeps the implementation scoped and prevents NeoForge from becoming a "fore
 | Task | Status |
 |------|--------|
 | Plan documented | ✅ Complete |
-| NeoForge module structure | ✅ Complete |
-| Build configuration | ✅ Complete |
-| Entry point implementation | ✅ Complete |
-| Mixin configuration | ✅ Complete |
-| Testing | ✅ Complete |
-
-**Implementation Date:** December 2024  
-**Test Results:** 200 XP orbs absorbed in 2.5s (maxBurstOrbs=6) on NeoForge 21.11.0-beta  
-**Status:** Production ready
+| NeoForge module structure | ⏳ Pending |
+| Build configuration | ⏳ Pending |
+| Entry point implementation | ⏳ Pending |
+| Mixin configuration | ⏳ Pending |
+| Testing | ⏳ Pending |

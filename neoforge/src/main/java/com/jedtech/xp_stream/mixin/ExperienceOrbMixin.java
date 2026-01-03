@@ -4,6 +4,7 @@ import com.jedtech.xp_stream.XpStreamConfig;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -57,8 +58,8 @@ public abstract class ExperienceOrbMixin {
             // Query orbs currently colliding with the player (no radius expansion)
             AABB playerBox = player.getBoundingBox();
             
-            List<ExperienceOrb> collidingOrbs = serverLevel.getEntitiesOfClass(
-                ExperienceOrb.class,
+            List<ExperienceOrb> collidingOrbs = serverLevel.getEntities(
+                EntityTypeTest.forClass(ExperienceOrb.class),
                 playerBox,
                 orb -> orb.isAlive() && orb != self
             );
@@ -91,6 +92,3 @@ public abstract class ExperienceOrbMixin {
         }
     }
 }
-
-
-
