@@ -4,8 +4,7 @@ pluginManagement {
         gradlePluginPortal()
     }
     plugins {
-        // Using known-good Loom version from Phase 0, will bump after successful 26.1 compile
-        id("net.fabricmc.fabric-loom") version "1.14.0-alpha.32"
+        id("net.fabricmc.fabric-loom") version "1.15.0-alpha.25"
     }
 }
 
