@@ -5,7 +5,7 @@ All notable changes to XP_Stream will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.0] - 2024-12-28
+## [0.2.0] - 2025-12-28
 
 ### Added
 - **NeoForge support** — XP_Stream now works on NeoForge 21.11.0-beta for Minecraft 1.21.11
@@ -23,7 +23,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.1.0] - 2024-12-XX
+## [0.2.1] - 2026-01-03
+
+### Changed
+- **Improved JAR naming** — JARs now include Minecraft version in filename (e.g., `xp_stream-fabric-1.21.11-0.2.1.jar`)
+- Better version organization in `gradle.properties`
+
+### Technical
+- Updated JAR naming to use `${project.minecraft_version}` variable instead of hardcoded version
+- Cleaned up obsolete configuration files (log4j2 configs, run argument files)
+- Removed unnecessary files in neoforge build directory
+
+---
+
+## [0.1.0] - 2025-12-XX
 
 ### Added
 - **Initial release** — Fabric-only support for Minecraft 1.21.11
@@ -54,13 +67,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Planned for v0.3
 - Multiplayer edge case testing
-- Explicit Mending repair verification
 - Performance testing under sustained load
 - Additional configuration options (if needed)
 
 ---
 
+[0.2.1]: https://github.com/Jed-Tech/XP_Stream/releases/tag/v0.2.1-1.21.11
 [0.2.0]: https://github.com/Jed-Tech/XP_Stream/releases/tag/v0.2.0
 [0.1.0]: https://github.com/Jed-Tech/XP_Stream/releases/tag/v0.1.0
-
-
