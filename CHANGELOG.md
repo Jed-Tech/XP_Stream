@@ -5,6 +5,34 @@ All notable changes to XP_Stream will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-01-07
+
+### Added
+- **Minecraft 26.1 Snapshot 2 support** — XP_Stream now works on Minecraft 26.1 Snapshot 2 for both Fabric and NeoForge
+- Java 25 support — Updated toolchain to Java 25 (required for 26.1+)
+
+### Changed
+- **Fabric:** Migrated from Yarn to Mojang mappings (Phase 0)
+- **Fabric:** Switched to unobfuscated Loom plugin (`net.fabricmc.fabric-loom`)
+- **Fabric:** Updated dependency configuration from `modImplementation` to `implementation` (26.1 unobfuscated requirement)
+- **Fabric:** Updated Fabric Loader to 0.18.4
+- **Fabric:** Updated Fabric Loom to 1.15.0-alpha.25
+- **NeoForge:** Updated to NeoForge 26.1.0.0-alpha.5+snapshot-2
+- **NeoForge:** Updated ModDevGradle to 2.0.135
+- **Performance:** 200 XP orbs now absorb in 3.8 seconds or less on Java 25 (verified on 26.1 Snapshot 2)
+
+### Technical
+- Updated Java toolchain from 21 → 25 in `build.gradle`
+- Removed mappings configuration for Fabric (not needed for unobfuscated 26.1+ builds)
+- Updated `fabric.mod.json` to use version range `">=26.1-alpha.2"` for compatibility
+- Verified mixin compatibility — all targets remain accessible on 26.1
+- Both Fabric and NeoForge modules verified working with identical functionality
+
+### Fixed
+- Resolved version mismatch between Gradle identifier (`26.1-snapshot-2`) and runtime version (`26.1-alpha.2`)
+
+---
+
 ## [0.2.0] - 2025-12-28
 
 ### Added
@@ -65,13 +93,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Planned for v0.3
+### Planned
 - Multiplayer edge case testing
 - Performance testing under sustained load
 - Additional configuration options (if needed)
 
 ---
 
+[0.3.0]: https://github.com/Jed-Tech/XP_Stream/releases/tag/v0.3.0-26.1-snapshot-2
 [0.2.1]: https://github.com/Jed-Tech/XP_Stream/releases/tag/v0.2.1-1.21.11
 [0.2.0]: https://github.com/Jed-Tech/XP_Stream/releases/tag/v0.2.0
 [0.1.0]: https://github.com/Jed-Tech/XP_Stream/releases/tag/v0.1.0
