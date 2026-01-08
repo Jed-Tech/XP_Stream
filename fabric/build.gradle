@@ -9,13 +9,15 @@ base {
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    // No mappings needed for unobfuscated 26.1+ builds
-    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    // No mappings line for unobfuscated 26.1+ builds
+    
+    // Unobfuscated 26.1+: use implementation instead of modImplementation
+    implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
 
     implementation project(":common")
 
     // Fabric API optional:
-    // modImplementation "net.fabricmc.fabric-api:fabric-api:<MATCHING_VERSION>"
+    // implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
 
 loom {
