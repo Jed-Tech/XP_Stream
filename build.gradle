@@ -7,6 +7,9 @@ allprojects {
     version = project.mod_version
 
     repositories {
+        maven {
+            url = "https://maven.neoforged.net/releases"
+        }
         mavenCentral()
     }
 }
@@ -25,6 +28,8 @@ subprojects {
         options.release = 21
     }
 }
+
+
 
 
 
