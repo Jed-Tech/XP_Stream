@@ -1,21 +1,20 @@
 pluginManagement {
     repositories {
-        maven {
-            url = "https://maven.neoforged.net/releases"
-        }
-        maven {
-            name = "Fabric"
-            url = "https://maven.fabricmc.net/"
-        }
-        mavenCentral()
+        maven { url = "https://maven.fabricmc.net/" }
         gradlePluginPortal()
     }
     plugins {
-        // Phase 2: Using Loom 1.15.0-alpha.25 for Minecraft 26.1 snapshot-2 (unobfuscated)
-        // Using net.fabricmc.fabric-loom for unobfuscated versions (26.1+)
         id("net.fabricmc.fabric-loom") version "1.15.0-alpha.25"
     }
 }
 
 rootProject.name = "XP_Stream"
 include("common", "fabric", "neoforge")
+
+// NeoForge repositories for dependencies (not pluginManagement)
+repositories {
+    maven {
+        url = "https://maven.neoforged.net/releases"
+    }
+    mavenCentral()
+}
