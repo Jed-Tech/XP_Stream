@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom-remap'  // Phase 0: obfuscated version (1.21.11)
+    id 'net.fabricmc.fabric-loom'  // Phase 2: unobfuscated version (26.1 snapshot-2)
     id 'maven-publish'
 }
 
