@@ -10,8 +10,13 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+    plugins {
+        // Phase 0: Using Loom 1.14-SNAPSHOT for Minecraft 1.21.11 (obfuscated)
+        // Using net.fabricmc.fabric-loom-remap for obfuscated versions (1.21.11 and older)
+        // Will switch to net.fabricmc.fabric-loom in Phase 3 for 26.1+ (unobfuscated)
+        id("net.fabricmc.fabric-loom-remap") version "1.14-SNAPSHOT"
+    }
 }
 
 rootProject.name = "XP_Stream"
 include("common", "fabric", "neoforge")
-

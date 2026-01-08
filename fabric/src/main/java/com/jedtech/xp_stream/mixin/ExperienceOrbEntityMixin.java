@@ -1,11 +1,10 @@
 package com.jedtech.xp_stream.mixin;
 
 import com.jedtech.xp_stream.XpStreamConfig;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.TypeFilter;
-import net.minecraft.util.math.Box;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 /**
- * Burst Pickup Mixin for ExperienceOrbEntity.
+ * Burst Pickup Mixin for ExperienceOrb (Mojang mappings).
  * 
  * When an XP orb is picked up, this mixin also collects other orbs that are
  * currently colliding with the player, up to a configurable cap. This eliminates
@@ -25,19 +24,22 @@ import java.util.List;
  * of orbs flying toward the player. Only orbs that have actually reached the
  * player get collected.
  */
-@Mixin(ExperienceOrbEntity.class)
+@Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbEntityMixin {
 
     /**
      * Re-entrancy guard to prevent infinite loops.
-     * When we call onPlayerCollision on burst orbs, this mixin would fire again.
+     * When we call playerTouch on burst orbs, this mixin would fire again.
      * The guard ensures we only process the initial triggering orb's burst.
      */
     @Unique
     private static boolean xp_stream$inBurst = false;
 
-    @Inject(method = "onPlayerCollision", at = @At("TAIL"))
-    private void xp_stream$burstPickup(PlayerEntity player, CallbackInfo ci) {
+    @Inject(method = "playerTouch", at = @At("TAIL"))
+    private void xp_stream$burstPickup(Player player, CallbackInfo ci) {
+        // DEBUG: Verify mixin is being called
+        System.out.println("[XP_Stream] Mixin called! playerTouch method invoked.");
+        
         // Skip if we're already processing a burst (re-entrancy guard)
         if (xp_stream$inBurst) return;
         
@@ -45,21 +47,25 @@ public abstract class ExperienceOrbEntityMixin {
         XpStreamConfig config = XpStreamConfig.get();
         
         // Skip if burst is disabled
-        if (config.getMaxBurstOrbs() <= 0) return;
+        if (config.getMaxBurstOrbs() <= 0) {
+            System.out.println("[XP_Stream] Mixin active but maxBurstOrbs is 0, skipping burst pickup.");
+            return;
+        }
         
         // Server-side only
-        if (!(player.getEntityWorld() instanceof ServerWorld serverWorld)) return;
+        if (!(player.level() instanceof ServerLevel serverLevel)) return;
 
         try {
             xp_stream$inBurst = true;
             
-            ExperienceOrbEntity self = (ExperienceOrbEntity)(Object)this;
+            ExperienceOrb self = (ExperienceOrb)(Object)this;
             
             // Query orbs currently colliding with the player (no radius expansion)
-            Box playerBox = player.getBoundingBox();
+            AABB playerBox = player.getBoundingBox();
             
-            List<ExperienceOrbEntity> collidingOrbs = serverWorld.getEntitiesByType(
-                TypeFilter.instanceOf(ExperienceOrbEntity.class),
+            // NOTE: Verify Mojmap method name - getEntitiesOfClass signature may vary by MC version
+            List<ExperienceOrb> collidingOrbs = serverLevel.getEntitiesOfClass(
+                ExperienceOrb.class,
                 playerBox,
                 orb -> orb.isAlive() && orb != self
             );
@@ -73,16 +79,18 @@ public abstract class ExperienceOrbEntityMixin {
             }
             
             int picked = 0;
-            for (ExperienceOrbEntity orb : collidingOrbs) {
+            for (ExperienceOrb orb : collidingOrbs) {
                 if (picked >= config.getMaxBurstOrbs()) break;
                 
                 // Reset the pickup delay so vanilla logic processes the orb.
                 // Without this, the delay set by the triggering orb would block
                 // all burst pickups.
-                player.experiencePickUpDelay = 0;
+                // NOTE: Verify Mojmap field name - may be takeXpDelay, experiencePickUpDelay, or different
+                // Check decompiled Player class to confirm exact field name in 1.21.11 Mojmap
+                player.takeXpDelay = 0;
                 
                 // Trigger vanilla pickup path (preserves Mending, XP award, etc.)
-                orb.onPlayerCollision(player);
+                orb.playerTouch(player);
                 
                 picked++;
             }
@@ -92,20 +100,3 @@ public abstract class ExperienceOrbEntityMixin {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
