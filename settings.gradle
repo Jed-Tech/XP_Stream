@@ -13,7 +13,7 @@ pluginManagement {
     plugins {
         // Phase 2: Using Loom 1.15.0-alpha.25 for Minecraft 26.1 snapshot-2 (unobfuscated)
         // Using net.fabricmc.fabric-loom for unobfuscated versions (26.1+)
-        id("net.fabricmc.fabric-loom") version "1.15.0-alpha.25"
+        // Note: Version resolved from gradle.properties via fabric/build.gradle
     }
 }
 
