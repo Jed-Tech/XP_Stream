@@ -20,11 +20,13 @@ side = "BOTH"
 [[dependencies.${mod_id}]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[${minecraft_version}]"
+versionRange = "[26.1-snapshot-1,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[mixins]]
 config = "xp_stream.neoforge.mixins.json"
 environment = "*"
+
+
 
