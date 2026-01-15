@@ -1,9 +1,25 @@
 # Changelog
 
-All notable changes to XP_Stream will be documented in this file.
+All notable changes to XP_Stream will be documented in this file. Entries are listed in reverse chronological order (newest releases at the top).
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+
+## [0.3.1] - 2026-01-15
+
+### Added
+- **Minecraft 26.1 Snapshot 3 support (Fabric)** — XP_Stream now works on Minecraft 26.1 Snapshot 3 for Fabric
+
+### Changed
+- Updated to Minecraft 26.1-snapshot-3
+- NeoForge version range updated to `[26.1-snapshot-1,)` for compatibility
+
+### Note
+- **Fabric:** Fully tested and ready for release on Snapshot 3
+- **NeoForge:** Tested on Snapshot 2 (Snapshot 3 pending NeoForge release)
+
+---
 
 ## [0.3.0] - 2026-01-07
 
@@ -33,6 +49,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.1] - 2026-01-03
+
+### Changed
+- **Improved JAR naming** — JARs now include Minecraft version in filename (e.g., `xp_stream-fabric-1.21.11-0.2.1.jar`)
+- Better version organization in `gradle.properties`
+
+### Technical
+- Updated JAR naming to use `${project.minecraft_version}` variable instead of hardcoded version
+- Cleaned up obsolete configuration files (log4j2 configs, run argument files)
+- Removed unnecessary files in neoforge build directory
+
+---
+
 ## [0.2.0] - 2025-12-28
 
 ### Added
@@ -48,19 +77,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `neoforge/` module with ModDevGradle build system
 - NeoForge mixin uses Mojmap names (`ExperienceOrb`, `playerTouch`) vs Fabric's Yarn names
 - Both loaders verified working with identical gameplay behavior
-
----
-
-## [0.2.1] - 2026-01-03
-
-### Changed
-- **Improved JAR naming** — JARs now include Minecraft version in filename (e.g., `xp_stream-fabric-1.21.11-0.2.1.jar`)
-- Better version organization in `gradle.properties`
-
-### Technical
-- Updated JAR naming to use `${project.minecraft_version}` variable instead of hardcoded version
-- Cleaned up obsolete configuration files (log4j2 configs, run argument files)
-- Removed unnecessary files in neoforge build directory
 
 ---
 
@@ -90,17 +106,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Mending compatibility (via vanilla path)
 
 ---
-
-## [Unreleased]
-
-### Planned
-- Multiplayer edge case testing
-- Performance testing under sustained load
-- Additional configuration options (if needed)
-
----
-
-[0.3.0]: https://github.com/Jed-Tech/XP_Stream/releases/tag/v0.3.0-26.1-snapshot-2
-[0.2.1]: https://github.com/Jed-Tech/XP_Stream/releases/tag/v0.2.1-1.21.11
-[0.2.0]: https://github.com/Jed-Tech/XP_Stream/releases/tag/v0.2.0
-[0.1.0]: https://github.com/Jed-Tech/XP_Stream/releases/tag/v0.1.0
