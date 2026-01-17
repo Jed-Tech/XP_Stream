@@ -37,9 +37,6 @@ public abstract class ExperienceOrbEntityMixin {
 
     @Inject(method = "playerTouch", at = @At("TAIL"))
     private void xp_stream$burstPickup(Player player, CallbackInfo ci) {
-        // DEBUG: Verify mixin is being called
-        System.out.println("[XP_Stream] Mixin called! playerTouch method invoked.");
-        
         // Skip if we're already processing a burst (re-entrancy guard)
         if (xp_stream$inBurst) return;
         
@@ -48,7 +45,9 @@ public abstract class ExperienceOrbEntityMixin {
         
         // Skip if burst is disabled
         if (config.getMaxBurstOrbs() <= 0) {
-            System.out.println("[XP_Stream] Mixin active but maxBurstOrbs is 0, skipping burst pickup.");
+            if (config.isDebug()) {
+                System.out.println("[XP_Stream] Mixin active but maxBurstOrbs is 0, skipping burst pickup.");
+            }
             return;
         }
         
