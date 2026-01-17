@@ -9,13 +9,32 @@ build/
 **/bin/
 **/out/
 
+# Generated sources (Fabric Loom, ModDevGradle)
+**/generated/
+**/generated-sources/
+**/loom-cache/
+**/moddev/
+**/processIncludeJars/
+**/.neoform/
+**/neoformruntime/
+**/.fabric/
+**/remappedSrc/
+
 # IDE
 .idea/
 *.iml
+*.iws
+*.ipr
 .vscode/
 *.swp
 *.swo
 *~
+.classpath
+.project
+.settings/
+
+# Eclipse
+.metadata/
 
 # OS
 .DS_Store
