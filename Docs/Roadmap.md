@@ -1,49 +1,4 @@
-# XP_Stream Release Plan
-
-## v0.1.0 — Core Beta (Completed)
-
-**Released:** Initial Fabric-only release with collision-based burst pickup.
-
-### Delivered
-- Collision-based burst pickup with configurable cap
-- JSON configuration (`maxBurstOrbs`, `debug`)
-- Mending compatibility via vanilla pickup path
-- Re-entrancy guard to prevent infinite loops
-
-### Test Results
-
-| Scenario | Vanilla | XP_Stream | Speedup |
-|----------|---------|-----------|---------|
-| 1 orb/tick × 200 ticks | 10.86s | 1.06s | ~10x |
-| 200 orbs instant | ~20s+ | 4.2s | ~5x |
-
-- XP integrity confirmed (11 levels + 12 points in all tests)
-- No XP loss observed
-
-### Known Limitations
-- Single-player tested only
-- Mending repair not explicitly verified (assumed via vanilla path)
-
----
-
-### Delivered
-- ✅ NeoForge support (21.11.0-beta for MC 1.21.11)
-- ✅ Multi-loader architecture (Fabric + NeoForge)
-- ✅ Loader-specific mixins with shared logic
-- ✅ Tested on both platforms (2.5s absorption with maxBurstOrbs=6)
-
----
-
-## v0.2.0 — Multi-Loader Release (Current)
-
-### Delivered
-- ✅ NeoForge support (21.11.0-beta for MC 1.21.11)
-- ✅ Multi-loader architecture (Fabric + NeoForge)
-- ✅ Loader-specific mixins with shared logic
-- ✅ Tested on both platforms (2.5s absorption with maxBurstOrbs=6)
-- ✅ Both JARs building successfully
-
----
+# XP_Stream Roadmap
 
 ## v0.3 — Multiplayer & Edge Case Beta (Planned)
 
@@ -73,8 +28,8 @@ Verify behavior in real-world multiplayer and high-stress scenarios.
 XP_Stream will be considered ready for 1.0 when:
 
 - [ ] Multiplayer edge cases verified
-- [ ] Mending explicitly tested and documented
-- [ ] No major behavioral bugs remain
+- [x] Mending explicitly tested and documented
+- [x] No major behavioral bugs remain
 - [ ] Config options are finalized and documented
 - [ ] README and user documentation complete
 
