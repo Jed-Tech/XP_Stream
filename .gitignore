@@ -40,9 +40,9 @@ build/
 .DS_Store
 Thumbs.db
 
-# NeoForge run directory (test worlds, logs, configs)
-neoforge/run/
-fabric/run/
+# Loader run directories (test worlds, logs, configs) — any mod: mods/<id>/fabric/run/, mods/<id>/neoforge/run/
+**/fabric/run/
+**/neoforge/run/
 
 # Logs
 *.log

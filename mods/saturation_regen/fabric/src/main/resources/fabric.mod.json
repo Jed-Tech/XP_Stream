@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "Scaffold mod — add description.",
+  "authors": ["Jeff E"],
+  "license": "CC-BY-NC-ND-4.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.jedtech.saturation_regen.fabric.SaturationRegenFabricMod"
+    ]
+  },
+  "mixins": [
+    "saturation_regen.fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": ">=26.1-alpha.2"
+  }
+}

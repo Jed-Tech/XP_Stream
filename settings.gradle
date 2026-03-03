@@ -3,10 +3,15 @@ pluginManagement {
         maven { url = "https://maven.fabricmc.net/" }
         gradlePluginPortal()
     }
+    // Loom version: keep pinned as literal per branch; do not move to version catalog yet.
     plugins {
         id("net.fabricmc.fabric-loom") version "1.15.0-alpha.25"
     }
 }
 
 rootProject.name = "XP_Stream"
-include("common", "fabric", "neoforge")
+
+// Explicit mod list: single source for include(); add new mod id here when adding a mod.
+def modIds = ["xp_stream", "saturation_regen"]
+gradle.ext.modIds = modIds
+include(modIds.collect { id -> [":mods:${id}:common", ":mods:${id}:fabric", ":mods:${id}:neoforge", ":mods:${id}:publishFabric", ":mods:${id}:publishNeoForge"] }.flatten().collect { it.toString() })

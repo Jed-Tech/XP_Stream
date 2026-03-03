@@ -9,16 +9,16 @@
         "group": "Mod Development - neoforge",
         "order": 0
       },
-      "projectName": "neoforge",
+      "projectName": "xp_stream-neoforge",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\build\\moddev\\clientRunProgramArgs.txt"
+        "@C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\mods\\xp_stream\\neoforge\\build\\moddev\\clientRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\build\\moddev\\clientRunVmArgs.txt",
-        "-Dfml.modFolders\u003dxp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\bin\\main"
+        "@C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\mods\\xp_stream\\neoforge\\build\\moddev\\clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003dxp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\mods\\xp_stream\\neoforge\\bin\\main"
       ],
-      "cwd": "${workspaceFolder}\\neoforge\\run",
+      "cwd": "${workspaceFolder}\\mods\\xp_stream\\neoforge\\run",
       "env": {},
       "console": "internalConsole",
       "shortenCommandLine": "none"
@@ -31,16 +31,16 @@
         "group": "Mod Development - neoforge",
         "order": 1
       },
-      "projectName": "neoforge",
+      "projectName": "xp_stream-neoforge",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\build\\moddev\\serverRunProgramArgs.txt"
+        "@C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\mods\\xp_stream\\neoforge\\build\\moddev\\serverRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\build\\moddev\\serverRunVmArgs.txt",
-        "-Dfml.modFolders\u003dxp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\neoforge\\bin\\main"
+        "@C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\mods\\xp_stream\\neoforge\\build\\moddev\\serverRunVmArgs.txt",
+        "-Dfml.modFolders\u003dxp_stream%%C:\\Users\\jedde\\GithubRepos\\Minecraft\\XP_Stream\\mods\\xp_stream\\neoforge\\bin\\main"
       ],
-      "cwd": "${workspaceFolder}\\neoforge\\run",
+      "cwd": "${workspaceFolder}\\mods\\xp_stream\\neoforge\\run",
       "env": {},
       "console": "internalConsole",
       "shortenCommandLine": "none"

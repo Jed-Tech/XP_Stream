@@ -1,0 +1,47 @@
+// Publishes one Modrinth version (Fabric) + one CurseForge file per mod release. One file per version.
+// Tokens: MODRINTH_TOKEN, CURSEFORGE_TOKEN (env/CI only).
+
+plugins {
+    id "com.modrinth.minotaur" version "2.+"
+    id "io.github.themrmilchmann.curseforge-publish" version "0.8.0"
+}
+
+def modId = "saturation_regen"
+def parentProps = new Properties()
+file("${project.projectDir}/../gradle.properties").withInputStream { parentProps.load(it) }
+def modVersion = parentProps.getProperty("mod_version", "0.0.0")
+def modName = parentProps.getProperty("mod_name", modId)
+def modrinthProjectId = parentProps.getProperty("modrinth_project_id", "").trim()
+def curseforgeProjectId = parentProps.getProperty("curseforge_project_id", "").trim()
+def mcVersion = rootProject.findProperty("minecraft_version") ?: "26.1-snapshot-7"
+
+// Modrinth: one version, one file (Fabric)
+if (modrinthProjectId) {
+    modrinth {
+        token = System.getenv("MODRINTH_TOKEN")
+        projectId = modrinthProjectId
+        versionNumber = modVersion
+        versionName = "${modName} ${modVersion} (Fabric) for ${mcVersion}"
+        uploadFile = project(":mods:${modId}:fabric").tasks.jar
+        gameVersions = [mcVersion]
+        loaders = ["fabric"]
+    }
+}
+
+// CurseForge: one file (Fabric)
+if (curseforgeProjectId) {
+    curseforge {
+        apiToken = System.getenv("CURSEFORGE_TOKEN")
+        publications {
+            register("fabric") {
+                projectId = curseforgeProjectId
+                artifacts.register("main") {
+                    from(project(":mods:${modId}:fabric").tasks.named("jar"))
+                    displayName = "${modName} ${modVersion} (Fabric) for ${mcVersion}"
+                    releaseType = "release"
+                    gameVersions.add(mcVersion)
+                }
+            }
+        }
+    }
+}

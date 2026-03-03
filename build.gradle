@@ -3,28 +3,64 @@ plugins {
 }
 
 allprojects {
-    group = project.maven_group
-    version = project.mod_version
-
     repositories {
         maven {
             url = "https://maven.neoforged.net/releases"
         }
         mavenCentral()
     }
+
+    // Only :mods:* subprojects: load per-mod gradle.properties and set version + mod identity (early, before subproject build scripts).
+    if (project.path.startsWith(":mods:")) {
+        def pathParts = project.path.split(":")
+        def modId = pathParts.length >= 3 ? pathParts[2] : null
+        if (modId != null) {
+            def propsFile = rootProject.file("mods/${modId}/gradle.properties")
+            if (propsFile.exists()) {
+                def props = new Properties()
+                propsFile.withInputStream { props.load(it) }
+                props.each { key, value ->
+                    project.ext.set(key.toString(), value.toString())
+                }
+                project.version = project.findProperty("mod_version") ?: "0.0.0"
+            }
+        }
+        // Branch-scoped versions (loader build scripts read project.minecraft_version etc.)
+        ["minecraft_version", "fabric_loader_version", "fabric_api_version", "neoforge_version", "moddevgradle_version"].each { key ->
+            def v = rootProject.findProperty(key)
+            if (v != null) project.ext.set(key, v)
+        }
+    } else {
+        group = project.findProperty("maven_group")
+        // Root project: no mod_version; version not used for publishing from root
+    }
 }
 
 subprojects {
     apply plugin: 'java'
-
     java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(25)
-        }
+        toolchain { languageVersion = JavaLanguageVersion.of(25) }
         withSourcesJar()
     }
+    tasks.withType(JavaCompile).configureEach { options.release = 25 }
+}
 
-    tasks.withType(JavaCompile).configureEach {
-        options.release = 25
+// --- Per-mod publish tasks (Modrinth + CurseForge, one file per version per loader) ---
+def modIdsForPublish = gradle.ext.modIds as List
+modIdsForPublish.each { modId ->
+    def publishTaskName = "publish${modId.split(/[-_]/).collect { it.capitalize() }.join('_')}"
+    tasks.register(publishTaskName) {
+        group = "publishing"
+        description = "Publish ${modId} to Modrinth and CurseForge (Fabric + NeoForge, one version/file per loader)"
+        dependsOn ":mods:${modId}:publishFabric:modrinth", ":mods:${modId}:publishFabric:publishToCurseForge",
+                  ":mods:${modId}:publishNeoForge:modrinth", ":mods:${modId}:publishNeoForge:publishToCurseForge"
+    }
+}
+tasks.register("publishAll") {
+    group = "publishing"
+    description = "Publish all mods to Modrinth and CurseForge"
+    modIdsForPublish.each { modId ->
+        def publishTaskName = "publish${modId.split(/[-_]/).collect { it.capitalize() }.join('_')}"
+        dependsOn publishTaskName
     }
 }

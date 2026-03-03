@@ -1,0 +1,43 @@
+plugins {
+    id "net.fabricmc.fabric-loom"
+    id "maven-publish"
+}
+
+base {
+    archivesName = project.archives_base_name + "-fabric-${project.minecraft_version}"
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    implementation project(":mods:saturation_regen:common")
+}
+
+loom {
+    splitEnvironmentSourceSets()
+}
+
+jar {
+    from(project(":mods:saturation_regen:common").sourceSets.main.output)
+}
+
+sourcesJar {
+    from(project(":mods:saturation_regen:common").sourceSets.main.allSource)
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version,
+               "mod_id": project.mod_id,
+               "mod_name": project.mod_name
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}

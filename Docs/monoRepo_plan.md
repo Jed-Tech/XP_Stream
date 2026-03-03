@@ -141,6 +141,10 @@ This document is the single plan we follow to migrate XP_Stream into a multi-mod
 2. Run Fabric and NeoForge clients; quick in-game check (e.g. XP_Stream behavior).
 3. Optionally diff JAR contents or manifest vs a pre-migration build if you have one.
 
+**Sanity notes (verify during Phase 3, not blockers):**
+- **Run configs:** Confirm dev run configs still work for both loaders (Fabric dev run + NeoForge client/server runs), not just `jar`/build.
+- **JAR naming/output paths:** Confirm the JAR names and output paths are what you expect, especially since loader JARs include common output (e.g. `mods/<id>/fabric/build/libs/<name>-fabric-<mc_version>.jar`).
+
 ---
 
 ### Phase 4: Standardized publishing (per-mod + optional publishAll)
@@ -204,8 +208,8 @@ This document is the single plan we follow to migrate XP_Stream into a multi-mod
 
 ## Checklist (high level)
 
-- [ ] Phase 1: Structural migration — XP_Stream under `mods/xp_stream/` (canonical paths, minimal root wire), builds pass.
-- [ ] Phase 2: Per-mod gradle.properties + root loader script; root stripped of mod metadata; per-mod props applied early.
-- [ ] Phase 3: Build parity and sanity check (build + run both loaders).
-- [ ] Phase 4: Per-mod publish tasks (Modrinth + CurseForge upload loader-built JARs), optional publishAll, tokens from env/CI.
-- [ ] Phase 5: Scaffold `mods/saturation_regen/`, add to settings and root script, copy/adapt build files, verify builds.
+- [x] Phase 1: Structural migration — XP_Stream under `mods/xp_stream/` (canonical paths, minimal root wire), builds pass.
+- [x] Phase 2: Per-mod gradle.properties + root loader script; root stripped of mod metadata; per-mod props applied early.
+- [x] Phase 3: Build parity and sanity check (build + run both loaders).
+- [x] Phase 4: Per-mod publish tasks (Modrinth + CurseForge upload loader-built JARs), optional publishAll, tokens from env/CI.
+- [x] Phase 5: Scaffold `mods/saturation_regen/`, add to settings and root script, copy/adapt build files, verify builds.
