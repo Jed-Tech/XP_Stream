@@ -2,7 +2,7 @@
 
 ## Overview
 
-XP_Stream is a server-side multi-loader mod for Minecraft 1.21.11 that accelerates XP absorption while preserving vanilla mechanics. It eliminates the "ankle swarm" effect when many XP orbs arrive at the player simultaneously. Supports both Fabric and NeoForge.
+XP_Stream is a server-side multi-loader mod for Minecraft 26.1 that accelerates XP absorption while preserving vanilla mechanics. It eliminates the "ankle swarm" effect when many XP orbs arrive at the player simultaneously. Supports both Fabric and NeoForge.
 
 ## Architecture
 
@@ -15,7 +15,7 @@ com.jedtech.xp_stream
 ├── fabric/
 │   ├── XpStreamFabricMod.java   # Fabric entrypoint
 │   └── mixin/
-│       └── ExperienceOrbEntityMixin.java  # Fabric mixin (Yarn mappings)
+│       └── ExperienceOrbEntityMixin.java  # Fabric mixin (Mojmap)
 └── neoforge/
     ├── XpStreamNeoForgeMod.java  # NeoForge entrypoint
     └── mixin/
@@ -27,7 +27,7 @@ com.jedtech.xp_stream
 When a player collides with an XP orb:
 
 1. Vanilla pickup proceeds normally (triggering orb)
-2. At `TAIL` of `onPlayerCollision`, the mixin queries for additional orbs **already colliding** with the player's bounding box
+2. At `TAIL` of `playerTouch`, the mixin queries for additional orbs **already colliding** with the player's bounding box
 3. Up to `maxBurstOrbs` additional orbs are collected via the vanilla pickup path
 4. Each burst orb has `experiencePickUpDelay` reset to bypass vanilla's 2-tick delay
 
@@ -39,21 +39,21 @@ When a player collides with an XP orb:
 
 ## Mixin Implementation
 
-**Fabric (Yarn mappings):**
-- Target: `net.minecraft.entity.ExperienceOrbEntity`
-- Method: `onPlayerCollision(PlayerEntity player)`
-- Injection: `@At("TAIL")`
-
-**NeoForge (Mojmap mappings):**
+**Fabric (Mojmap):**
 - Target: `net.minecraft.world.entity.ExperienceOrb`
 - Method: `playerTouch(Player player)`
 - Injection: `@At("TAIL")`
 
-Both mixins implement the same collision-based burst pickup logic, but use loader-specific mapping names.
+**NeoForge (Mojmap):**
+- Target: `net.minecraft.world.entity.ExperienceOrb`
+- Method: `playerTouch(Player player)`
+- Injection: `@At("TAIL")`
+
+Both mixins use Mojmap and implement the same collision-based burst pickup logic; only the mixin class names differ (ExperienceOrbEntityMixin vs ExperienceOrbMixin).
 
 ### Re-entrancy Guard
 
-A static boolean flag prevents infinite loops when `onPlayerCollision` is called on burst orbs:
+A static boolean flag prevents infinite loops when `playerTouch` is called on burst orbs:
 
 ```java
 @Unique
@@ -63,16 +63,16 @@ private static boolean xp_stream$inBurst = false;
 ### Server-Side Enforcement
 
 ```java
-if (!(player.getEntityWorld() instanceof ServerWorld serverWorld)) return;
+if (!(player.getLevel() instanceof ServerLevel serverLevel)) return;
 ```
 
 ### Pickup Delay Reset
 
-Vanilla sets `experiencePickUpDelay` after each pickup. Without resetting it, burst orbs would be blocked:
+Vanilla sets the pickup delay after each pickup. Without resetting it, burst orbs would be blocked:
 
 ```java
-player.experiencePickUpDelay = 0;
-orb.onPlayerCollision(player);  // Vanilla path — Mending works
+player.takeXpDelay = 0;
+orb.playerTouch(player);  // Vanilla path — Mending works
 ```
 
 ## Configuration
@@ -100,7 +100,7 @@ Config is loaded during mod initialization:
 XP_Stream preserves Mending by using the vanilla pickup path:
 
 ```java
-orb.onPlayerCollision(player);  // Calls repairPlayerGears() internally
+orb.playerTouch(player);  // Calls repairPlayerGears() internally
 ```
 
 **Never** use `player.addExperience()` directly — it bypasses Mending.
@@ -130,12 +130,12 @@ No XP loss. Mending compatibility preserved on both platforms.
 
 | Loader | Status | Version |
 |--------|--------|---------|
-| Fabric | ✅ Supported | 1.21.11 (Fabric Loader ≥0.16.0) |
-| NeoForge | ✅ Supported | 1.21.11 (NeoForge 21.11.0-beta) |
+| Fabric | ✅ Supported | Minecraft 26.1 (Fabric Loader ≥0.18.4; tested on Snapshot 9) |
+| NeoForge | ✅ Supported | Minecraft 26.1 Snapshot 7 (NeoForge 26.1.0.0-alpha.12+snapshot-7) |
 
 ## Dependencies
 
-- Minecraft 1.21.11
-- Fabric Loader ≥0.16.0 (for Fabric version)
-- NeoForge 21.11.0-beta (for NeoForge version)
-- Java 21
+- Minecraft 26.1
+- Fabric Loader ≥0.18.4 (for Fabric version)
+- NeoForge 26.1.0.0-alpha.12+snapshot-7 (for NeoForge version; or latest per [maven-metadata.xml](https://maven.neoforged.net/releases/net/neoforged/neoforge/maven-metadata.xml))
+- Java 25

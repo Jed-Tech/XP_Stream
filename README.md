@@ -41,11 +41,13 @@ XP_Stream works out of the box with sensible defaults. If you want to tweak it:
 
 **Fabric:**
 1. Install [Fabric Loader](https://fabricmc.net/) for Minecraft 26.1
-2. Drop `xp_stream-fabric-26.1.jar` into your `mods` folder (server or client for singleplayer)
+2. Drop the Fabric JAR (e.g. `xp_stream-fabric-26.1-snapshot-7.jar`) into your `mods` folder (server or client for singleplayer)
 
 **NeoForge:**
 1. Install [NeoForge](https://neoforged.net/) for Minecraft 26.1
-2. Drop `xp_stream-neoforge-26.1.jar` into your `mods` folder (server or client for singleplayer)
+2. Drop the NeoForge JAR (e.g. `xp_stream-neoforge-26.1-snapshot-7.jar`) into your `mods` folder (server or client for singleplayer)
+
+JAR filenames include the snapshot (e.g. `26.1-snapshot-7`) so you can match the build to your game version.
 
 **Server-side only** — clients connecting to your server don't need the mod.
 
@@ -64,8 +66,8 @@ XP_Stream works out of the box with sensible defaults. If you want to tweak it:
 
 - **Minecraft:** 26.1
 - **Loaders:** 
-  - ✅ Fabric (Fabric Loader ≥0.18.4)
-  - ✅ NeoForge (for Minecraft 26.1)
+  - ✅ Fabric (Fabric Loader ≥0.18.4) — tested on 26.1 Snapshot 9 with Fabric 0.18.4
+  - ✅ NeoForge (for Minecraft 26.1) — tested on 26.1 Snapshot 7 with NeoForge 26.1.0.0-alpha.12+snapshot-7
 - **Other mods:** Should work with any mod that doesn't alter XP orb collision
 
 ---

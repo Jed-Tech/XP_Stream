@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.3.4] - 2026-02-18
+
+### Added
+- **NeoForge 26.1 Snapshot 7 support** — XP_Stream builds and runs on NeoForge 26.1.0.0-alpha.12+snapshot-7 (Minecraft 26.1 Snapshot 7)
+
+### Changed
+- NeoForge: updated to 26.1.0.0-alpha.12+snapshot-7; Minecraft build target 26.1-snapshot-7
+- ModDevGradle: 2.0.140
+
+### Compatibility (tested)
+- **Fabric:** Minecraft 26.1 Snapshot 3 through Snapshot 9 with Fabric Loader 0.18.4
+- **NeoForge:** Minecraft 26.1 Snapshot 7 with NeoForge 26.1.0.0-alpha.12+snapshot-7
+
+---
+
 ## [0.3.3] - 2026-01-17
 
 ### Fixed
