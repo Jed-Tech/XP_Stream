@@ -1,27 +1,51 @@
-# XP_Stream
+# XP Stream
 
 **Faster XP pickup. Same vanilla feel.**
 
-XP_Stream removes the vanilla delay when collecting experience orbs. Large XP drops from mob farms, enchanting, or boss fights are absorbed smoothly instead of creating an ankle swarm that follows you around.
+Absorbs XP orbs faster without clumping, while preserving the magic feel and core mechanics of normal XP collection. All the orbs with no loss of XP!
 
 ---
 
-## What It Does
+## ✨ Why XP Stream?
 
-- **Speeds up XP absorption** — large clusters are collected in seconds, not minutes
-- **Preserves vanilla mechanics** — orbs still fly toward you, Mending still works
-- **No XP loss** — every orb awards its full value
-- **Keeps the visual and audio effects** — you'll still see orbs flowing in, just without the backlog
+Large XP drops in vanilla pile up and take too long to absorb.
+XP Stream removes the pickup delay so XP flows smoothly toward players, without changing how it looks or behaves.
 
-You get the satisfying rush of XP without the waiting.
+It feels like vanilla Minecraft… just smoother.
 
 ---
 
-## Configuration
+## ⚙️ What It Does
 
-XP_Stream works out of the box with sensible defaults. If you want to tweak it:
+- Faster XP absorption for large drops
+- Preserves vanilla orb motion, sounds, and Mending
+- No XP loss: every orb grants full value
+- Cleaner visuals with fewer lingering orbs
+- Server-side only: no client install needed
+- Safe for single player or multiplayer
 
-**File:** `config/xp_stream.json`
+---
+
+## 🧠 Vanilla-Plus Design
+
+XP Stream is **not** an orb-clumping mod.
+
+Instead of changing XP behavior, it adjusts *how fast* orbs are collected, keeping the familiar vanilla feel while avoiding pools of XP that just won't absorb.
+
+---
+
+## 🏭 Great for XP Farms
+
+Ideal for mob farms, spawners, boss fights, and XP farms.
+Fewer lingering orbs means a **performance improvement** over vanilla.
+
+---
+
+## 🔧 Configuration (Optional)
+
+XP Stream works out of the box, but there are options for advanced configuration:
+
+Config file: `config/xp_stream.json`
 
 ```json
 {
@@ -30,63 +54,14 @@ XP_Stream works out of the box with sensible defaults. If you want to tweak it:
 }
 ```
 
-| Setting | Default | What it does |
-|---------|---------|--------------|
-| `maxBurstOrbs` | 6 | How many extra orbs to grab per pickup (higher = faster xp orb pickup) |
-| `debug` | false | Log pickup events to console (for troubleshooting) |
+- `maxBurstOrbs` (default: 6) higher = faster absorption of XP orbs.
+- Setting `maxBurstOrbs` to `0` effectively disables the mod.
 
 ---
 
-## Installation
 
-**Fabric:**
-1. Install [Fabric Loader](https://fabricmc.net/) for Minecraft 26.1
-2. Drop the Fabric JAR (e.g. `xp_stream-fabric-26.1-snapshot-7.jar`) into your `mods` folder (server or client for singleplayer)
+## 📦 Installation
 
-**NeoForge:**
-1. Install [NeoForge](https://neoforged.net/) for Minecraft 26.1
-2. Drop the NeoForge JAR (e.g. `xp_stream-neoforge-26.1-snapshot-7.jar`) into your `mods` folder (server or client for singleplayer)
-
-JAR filenames include the snapshot (e.g. `26.1-snapshot-7`) so you can match the build to your game version.
-
-**Server-side only** — clients connecting to your server don't need the mod.
-
----
-
-## For Server Admins
-
-- **No client requirement** — players connect with vanilla clients
-- **Minimal performance impact** — logic only runs when orbs are picked up
-- **Safe for multiplayer** — each player's pickup is independent
-- **Easy to disable** — remove the jar or set `maxBurstOrbs` to 0
-
----
-
-## Compatibility
-
-- **Minecraft:** 26.1
-- **Loaders:** 
-  - ✅ Fabric (Fabric Loader ≥0.18.4) — tested on 26.1 Snapshot 9 with Fabric 0.18.4
-  - ✅ NeoForge (for Minecraft 26.1) — tested on 26.1 Snapshot 7 with NeoForge 26.1.0.0-alpha.12+snapshot-7
-- **Other mods:** Should work with any mod that doesn't alter XP orb collision
-
----
-
-## License
-
-XP_Stream is licensed under **CC BY-NC-ND 4.0**.
-
-- ✅ Share freely (including in modpacks)
-- ✅ Attribution required
-- ❌ No commercial use
-- ❌ No modifications or derivatives
-
-See the [LICENSE](LICENSE) file or [Creative Commons](https://creativecommons.org/licenses/by-nc-nd/4.0/) for full terms.
-
----
-
-## Links
-
-- [GitHub](https://github.com/Jed-Tech/XP_Stream)
-- [Issues & Feedback](https://github.com/Jed-Tech/XP_Stream/issues)
-- [Changelog](CHANGELOG.md) — Version history and changes
+1. Install Fabric or NeoForge Loader
+2. Drop the mod jar into your `mods` folder
+3. Start the server
