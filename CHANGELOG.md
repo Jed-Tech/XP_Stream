@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.9.0] - 2026-03-20
+
+### Changed
+- Improved NeoForge compatibility across the full Minecraft 26.1 family (including pre-releases/RCs), so XP burst pickup continues to work without requiring manual version-specific setup.
+
+### Compatibility (tested)
+- **Fabric:** Minecraft 26.1 Release Candidate 1
+- **NeoForge:** Minecraft 26.1 Pre-Release 3
+
+---
+
 ## [0.3.4] - 2026-02-18
 
 ### Added
