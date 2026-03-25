@@ -5,7 +5,7 @@ pluginManagement {
     }
     // Loom version: keep pinned as literal per branch; do not move to version catalog yet.
     plugins {
-        id("net.fabricmc.fabric-loom") version "1.15.0-alpha.25"
+        id("net.fabricmc.fabric-loom") version "1.15.5"
     }
 }
 

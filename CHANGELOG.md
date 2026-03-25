@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [1.0.0] - 2026-03-24
+
+### Changed
+- **1.0** — XP_Stream is updated for **Minecraft 26.1** (release): built and tested against current Fabric and NeoForge toolchains for 26.1 GA.
+
+### Compatibility (tested)
+- **Fabric:** Minecraft 26.1 (client)
+- **NeoForge:** Minecraft 26.1, NeoForge 26.1.0.1-beta (client) — burst pickup OK (~200 XP in ≤4 s on both)
+
+---
+
 ## [0.9.0] - 2026-03-20
 
 ### Changed
