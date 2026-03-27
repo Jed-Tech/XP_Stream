@@ -1,16 +1,24 @@
 # Plan: Configurable Burst Pickup Margin (Inflate Player AABB)
 
+**Status:** Not implemented — `burstPickupMargin` design is documented here and needs to be re-implemented/refactored in code.
+
 ## Goal
 
-Slightly expand the volume used for burst-collecting XP orbs so orbs just outside the player hitbox (e.g. on a trapdoor above the player’s head) are included. Margin is configurable: **default 0.1 blocks**, **max 1.0 block**. Set to **0** to keep current behavior (strict collision only).
+After **normal** XP pickup runs for the orb that touched the player, **burst-collect** *other* XP orbs that lie within a **configurable margin** around the player hitbox—**min `0` = disabled**, **default `0.4` blocks** (uniform inflate on all axes), **max `1.0`**. Set to **`0`** to keep current behavior: burst only queries **strict** collision (no shell). This catches orbs just outside the hitbox (e.g. on a trapdoor above the player’s head) without replacing vanilla’s first orb.
+
+For the "stuck above your head" scenario you’re testing, **`burstPickupMargin: 0.4` is the practical sweet spot** (smallest range that still reliably pulls the intended burst candidates).
 
 ---
 
 ## Design
 
+- **Order of operations (non-negotiable for this feature):**
+  1. **Vanilla / normal collection first.** The burst mixin injects at **`@At("TAIL")`** of `ExperienceOrb.playerTouch`, so the **triggering** orb’s vanilla `playerTouch` logic runs to completion before any burst code executes.
+  2. **Burst second.** Only **other** orbs (`orb != self`, alive) are queried via `getEntitiesOfClass(ExperienceOrb.class, playerBox, …)`. The **`playerBox`** is **`player.getBoundingBox().inflate(margin, margin, margin)`** when **`margin = burstPickupMargin` > 0**; when **`margin == 0`**, **`playerBox`** is the **strict** bounding box (today’s behavior). Orbs in that volume are then burst-processed up to **`maxBurstOrbs`** via **`playerTouch`** (re-entrancy guarded).
+- **“Distance”** here: **axis-aligned** expansion of the player AABB by **`burstPickupMargin`** (same value on **X/Y/Z**), not a separate spherical radius API. It is the planned implementation of “within a configurable distance” for burst candidates.
 - **Option used:** Uniform AABB inflate (Option 1) + configurable margin (Option 3).
-- **When:** The expansion applies only to the `getEntitiesOfClass(ExperienceOrb.class, playerBox, ...)` query in the burst pickup mixin. Vanilla pickup still requires actual collision; we only broaden which *other* orbs get collected in the same burst.
-- **Config:** New field `burstPickupMargin` (double) in `xp_stream.json`. Default `0.1`, allowed range `0.0`–`1.0`. Values outside range are clamped in `validate()`.
+- **Config:** New field **`burstPickupMargin`** (double) in `xp_stream.json`. Min **`0`** disables expansion, max **`1.0`**; default **`0.4`**, allowed range **`0.0`–`1.0`**. Values outside range are clamped in **`validate()`**.
+- **Validation:** Overlap plateau experiments (Tests 1–3: inflate ladder, distance buckets, optional cramming sweep) — [inflateAABBTestPlan.md](inflateAABBTestPlan.md).
 
 ---
 
@@ -19,7 +27,7 @@ Slightly expand the volume used for burst-collecting XP orbs so orbs just outsid
 ### 1. Constants (`common/.../XpStreamConstants.java`)
 
 - Add:
-  - `DEFAULT_BURST_PICKUP_MARGIN = 0.1`
+  - `DEFAULT_BURST_PICKUP_MARGIN = 0.4`
   - `MAX_BURST_PICKUP_MARGIN = 1.0`
 - Use these in config default and validation.
 
@@ -49,16 +57,18 @@ Slightly expand the volume used for burst-collecting XP orbs so orbs just outsid
 
 ### 5. Verification
 
-- **Default:** New world/config uses `burstPickupMargin: 0.1`; orbs slightly above the player (e.g. on a trapdoor) burst-collect.
+- **Default:** New world/config uses `burstPickupMargin: 0.4`; orbs slightly above the player (e.g. on a trapdoor) burst-collect.
 - **Zero:** Set `burstPickupMargin: 0` in config; behavior matches current (strict collision only).
 - **Max:** Set `burstPickupMargin: 1.0`; burst range is player box + 1 block in all directions; no errors.
+- **Sweet spot (your test):** With **`"debug": true`**, you should see burst candidates with **`strictOthers=0 queryOthers=8 maxBurst=6 picking=6`** for the targeted “above head” pile (exact `gameTime`/AABB coords vary).
+- **`maxBurstOrbs` recommendation for your tests:** In this geometry, `queryOthers` (candidates inside the burst query) has been observed to peak at **19**, so keep **`maxBurstOrbs <= 19`** to avoid requesting more than can exist per burst pass.
 - **Clamp:** Set e.g. `1.5` or `-0.1` in JSON; after load, value is clamped to 1.0 or 0.0 and logged.
 - **Both loaders:** Run Fabric and NeoForge and confirm same behavior for a given config.
 
 ### 6. Docs / release (optional)
 
-- **README or config docs:** Mention `burstPickupMargin` (default 0.1, range 0–1, 0 = vanilla-style collision-only burst).
-- **CHANGELOG:** Note “Configurable burst pickup margin (default 0.1, max 1 block); set to 0 to disable expansion.”
+- **README or config docs:** Mention `burstPickupMargin` (default 0.4, range 0–1, 0 = vanilla-style collision-only burst).
+- **CHANGELOG:** Note “Configurable burst pickup margin (default 0.4, max 1 block); set to 0 to disable expansion.”
 
 ---
 

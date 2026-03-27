@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [1.1.0] - 2026-03-26
+
+### Changed
+- **Smarter XP burst range** — XP Stream now uses vanilla's on-foot pickup range, so nearby orbs hiding within range (like behind trapdoors and walls) are picked up more consistently to vanilla behavior.
+- **Clearer debug output** — Burst logs now show: `Burst pickup: X orbs (of Y in range).`
+- **Updated loader target** — NeoForge build target updated to `26.1.0.5-beta`.
+
+### Compatibility (tested)
+- **Fabric:** Minecraft 26.1
+- **NeoForge:** Minecraft 26.1, NeoForge 26.1.0.5-beta
+
+---
+
 ## [1.0.0] - 2026-03-24
 
 ### Changed

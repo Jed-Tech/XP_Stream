@@ -17,12 +17,11 @@ import java.util.List;
  * Burst Pickup Mixin for ExperienceOrb (Mojang mappings).
  * 
  * When an XP orb is picked up, this mixin also collects other orbs that are
- * currently colliding with the player, up to a configurable cap. This eliminates
+ * in vanilla pickup range of the player, up to a configurable cap. This eliminates
  * the vanilla 2-tick delay between picking up orbs that arrived simultaneously.
  * 
- * Design: Collision-based (no radius expansion) to preserve the vanilla feel
- * of orbs flying toward the player. Only orbs that have actually reached the
- * player get collected.
+ * Design: Use vanilla on-foot pickup geometry from Player.aiStep
+ * (player.getBoundingBox().inflate(1.0, 0.5, 1.0)).
  */
 @Mixin(ExperienceOrb.class)
 public abstract class ExperienceOrbEntityMixin {
@@ -59,10 +58,9 @@ public abstract class ExperienceOrbEntityMixin {
             
             ExperienceOrb self = (ExperienceOrb)(Object)this;
             
-            // Query orbs currently colliding with the player (no radius expansion)
-            AABB playerBox = player.getBoundingBox();
-            
-            // NOTE: Verify Mojmap method name - getEntitiesOfClass signature may vary by MC version
+            // Match vanilla on-foot pickup range from Player.aiStep.
+            AABB playerBox = player.getBoundingBox().inflate(1.0, 0.5, 1.0);
+
             List<ExperienceOrb> collidingOrbs = serverLevel.getEntitiesOfClass(
                 ExperienceOrb.class,
                 playerBox,
@@ -74,7 +72,7 @@ public abstract class ExperienceOrbEntityMixin {
             if (config.isDebug()) {
                 System.out.println("[XP_Stream] Burst pickup: " + 
                     Math.min(collidingOrbs.size(), config.getMaxBurstOrbs()) + 
-                    " orbs (of " + collidingOrbs.size() + " colliding)");
+                    " orbs (of " + collidingOrbs.size() + " in range).");
             }
             
             int picked = 0;
@@ -84,8 +82,6 @@ public abstract class ExperienceOrbEntityMixin {
                 // Reset the pickup delay so vanilla logic processes the orb.
                 // Without this, the delay set by the triggering orb would block
                 // all burst pickups.
-                // NOTE: Verify Mojmap field name - may be takeXpDelay, experiencePickUpDelay, or different
-                // Check decompiled Player class to confirm exact field name in 1.21.11 Mojmap
                 player.takeXpDelay = 0;
                 
                 // Trigger vanilla pickup path (preserves Mending, XP award, etc.)

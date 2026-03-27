@@ -22,20 +22,22 @@ com.jedtech.xp_stream
         └── ExperienceOrbMixin.java  # NeoForge mixin (Mojmap mappings)
 ```
 
-## Core Mechanism: Collision-Based Burst Pickup
+## Core Mechanism: Vanilla-Range Burst Pickup (On Foot)
 
-When a player collides with an XP orb:
+When an XP orb is picked up by vanilla:
 
 1. Vanilla pickup proceeds normally (triggering orb)
-2. At `TAIL` of `playerTouch`, the mixin queries for additional orbs **already colliding** with the player's bounding box
+2. At `TAIL` of `playerTouch`, the mixin queries additional orbs in vanilla's on-foot pickup area: `player.getBoundingBox().inflate(1.0, 0.5, 1.0)`
 3. Up to `maxBurstOrbs` additional orbs are collected via the vanilla pickup path
-4. Each burst orb has `experiencePickUpDelay` reset to bypass vanilla's 2-tick delay
+4. Each burst orb has `takeXpDelay` reset to bypass vanilla's 2-tick delay
 
-### Why Collision-Based?
+Current scope is on-foot parity; mounted pickup-geometry parity is planned separately.
 
-- **Preserves vanilla feel** — Orbs still fly toward the player visually
-- **No "magnet" effect** — Only orbs that have reached the player are collected
-- **No radius expansion** — Uses `player.getBoundingBox()` directly
+### Why Vanilla Pickup Range?
+
+- **Source-aligned candidate set (on foot)** — Matches `Player.aiStep` pickup geometry for which orbs are in range
+- **Preserves vanilla path** — Burst still calls `orb.playerTouch(player)` (Mending and XP handling stay vanilla)
+- **Bounded local query** — Uses an expanded player AABB, not a world-wide scan
 
 ## Mixin Implementation
 
@@ -49,7 +51,7 @@ When a player collides with an XP orb:
 - Method: `playerTouch(Player player)`
 - Injection: `@At("TAIL")`
 
-Both mixins use Mojmap and implement the same collision-based burst pickup logic; only the mixin class names differ (ExperienceOrbEntityMixin vs ExperienceOrbMixin).
+Both mixins use Mojmap and implement the same vanilla-range burst pickup logic; only the mixin class names differ (ExperienceOrbEntityMixin vs ExperienceOrbMixin).
 
 ### Re-entrancy Guard
 
@@ -63,7 +65,7 @@ private static boolean xp_stream$inBurst = false;
 ### Server-Side Enforcement
 
 ```java
-if (!(player.getLevel() instanceof ServerLevel serverLevel)) return;
+if (!(player.level() instanceof ServerLevel serverLevel)) return;
 ```
 
 ### Pickup Delay Reset
@@ -107,8 +109,8 @@ orb.playerTouch(player);  // Calls repairPlayerGears() internally
 
 ## Performance
 
-- **No per-tick scanning** — Logic only runs on collision events
-- **Bounded query** — Uses player bounding box, not world-wide search
+- **No per-tick global scanning** — Logic runs only when `playerTouch` fires
+- **Bounded query** — Uses vanilla on-foot pickup area (`inflate(1.0, 0.5, 1.0)`), not a world-wide search
 - **Capped iteration** — Limited by `maxBurstOrbs`
 
 ## Test Results

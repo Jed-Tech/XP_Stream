@@ -52,3 +52,6 @@ Thumbs.db
 *.tmp
 *.bak
 *.cache
+
+# Agent / local research: extracted Minecraft sources (do not commit)
+.agent_tmp/
