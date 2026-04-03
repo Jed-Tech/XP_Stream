@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [1.1.1] - 2026-04-02
+
+### Changed
+- Updated repo-wide build pins for the Minecraft `26.1.1` line so both mods continue building from the same root configuration.
+- Updated **NeoForge** target to `26.1.1.1-beta`.
+- Updated Fabric-side dependency pins for the `26.1.1` line.
+
+### Compatibility (tested)
+- **Fabric:** Minecraft 26.1.1
+- **NeoForge:** Minecraft 26.1.1, NeoForge 26.1.1.1-beta
+
+---
+
 ## [1.1.0] - 2026-03-26
 
 ### Changed
