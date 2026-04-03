@@ -35,6 +35,12 @@ xp-stream-build:
 xp-stream-publish:
   just publish xp_stream
 
+xp-stream-github-release:
+  just github-release xp_stream
+
+xp-stream-github-release-dry-run:
+  just github-release-dry-run xp_stream
+
 # Happy-path aliases for saturation_regen
 saturation-regen-fabric-client:
   just run-client saturation_regen fabric
@@ -66,6 +72,12 @@ run-server mod="xp_stream" loader="fabric":
 
 publish mod="xp_stream" loader="":
   powershell -NoProfile -Command "$task = if ('{{loader}}' -eq '') { ':mods:{{mod}}:publishFabric:modrinth', ':mods:{{mod}}:publishFabric:publishToCurseForge', ':mods:{{mod}}:publishNeoForge:modrinth', ':mods:{{mod}}:publishNeoForge:publishToCurseForge' } else { ':mods:{{mod}}:publish' + ('{{loader}}'.Substring(0,1).ToUpper() + '{{loader}}'.Substring(1)) + ':modrinth', ':mods:{{mod}}:publish' + ('{{loader}}'.Substring(0,1).ToUpper() + '{{loader}}'.Substring(1)) + ':publishToCurseForge' }; ./gradlew.bat $task"
+
+github-release mod="xp_stream":
+  powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\github-release.ps1 -Mod {{mod}}
+
+github-release-dry-run mod="xp_stream":
+  powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\github-release.ps1 -Mod {{mod}} -DryRun
 
 tasks mod="xp_stream" loader="fabric":
   ./gradlew.bat ":mods:{{mod}}:{{loader}}:tasks" --all
