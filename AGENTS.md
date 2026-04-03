@@ -19,6 +19,7 @@
 - `npm`
 - `python`
 - `pip`
+- Context7 MCP
 
 ## Tool Usage
 - Use `just` for workflows.
@@ -26,6 +27,7 @@
 - `gh` = GitHub (PRs, issues, Actions).
 - `jq` = JSON parsing.
 - `rg` = code search.
+- **Context7 MCP** = up-to-date docs for libraries, frameworks, SDKs, APIs, CLIs, and cloud services. Prefer over web search for official docs. Read the MCP tool schema before calling.
 
 ## Environment
 - On tool failure, check (`--version`) then stop and inform the user.
