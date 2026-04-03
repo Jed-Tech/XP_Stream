@@ -37,6 +37,7 @@
 - Build all: `just build-all`
 - Clean: `just clean`
 - Check toolchain: `just doctor`
+- GitHub release (xp_stream): `just github-release xp_stream`
 - Run Fabric client: `just xp-stream-fabric-client`
 - Run NeoForge client: `just xp-stream-neoforge-client`
 
