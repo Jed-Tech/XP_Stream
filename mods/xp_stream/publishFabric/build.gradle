@@ -15,6 +15,26 @@ def modrinthProjectId = parentProps.getProperty("modrinth_project_id", "").trim(
 def curseforgeProjectId = parentProps.getProperty("curseforge_project_id", "").trim()
 def mcVersion = rootProject.findProperty("minecraft_version") ?: "26.1-snapshot-7"
 
+def getChangelogSection = {
+    def changelogFile = rootProject.file("mods/xp_stream/CHANGELOG.md")
+    if (!changelogFile.exists()) {
+        throw new GradleException("CHANGELOG.md not found at ${changelogFile}")
+    }
+
+    def escapedVersion = java.util.regex.Pattern.quote(modVersion)
+    def matcher = (changelogFile.getText("UTF-8") =~ /(?ms)^## \[${escapedVersion}\].*?(?=^## \[|\z)/)
+    if (!matcher.find()) {
+        throw new GradleException("Could not find CHANGELOG section for version ${modVersion} in ${changelogFile}")
+    }
+
+    def lines = matcher.group(0).readLines()
+    while (!lines.isEmpty() && (lines[-1].trim().isEmpty() || lines[-1].trim() == "---")) {
+        lines.remove(lines.size() - 1)
+    }
+
+    return lines.join(System.lineSeparator()).trim()
+}
+
 // Modrinth: one version, one file (Fabric)
 if (modrinthProjectId) {
     modrinth {
@@ -22,6 +42,7 @@ if (modrinthProjectId) {
         projectId = modrinthProjectId
         versionNumber = modVersion
         versionName = "${modName} ${modVersion} (Fabric) for ${mcVersion}"
+        changelog = getChangelogSection()
         uploadFile = project(":mods:${modId}:fabric").tasks.jar
         gameVersions = [mcVersion]
         loaders = ["fabric"]
@@ -39,6 +60,10 @@ if (curseforgeProjectId) {
                     from(project(":mods:${modId}:fabric").tasks.named("jar"))
                     displayName = "${modName} ${modVersion} (Fabric) for ${mcVersion}"
                     releaseType = "release"
+                    changelog {
+                        format = "markdown"
+                        from(getChangelogSection())
+                    }
                     gameVersions.add(mcVersion)
                 }
             }

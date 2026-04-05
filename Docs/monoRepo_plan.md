@@ -43,6 +43,7 @@ This document is the single plan we follow to migrate XP_Stream into a multi-mod
 - **Publishing:** One publish task per mod (primary); optional `publishAll` that depends on each. Publish = Modrinth + CurseForge, uploading the **loader-built JARs** (Fabric and NeoForge artifacts), not just Maven components. Maven publishing remains separate/optional. Tokens via env/CI only.
 - **No cross-mod dependencies.** Defer `build-logic/` and convention plugins until 3–5 mods or duplication hurts.
 - **Compat:** Each mod has `common/.../compat/` for snapshot-to-snapshot or loader-specific logic; core logic calls compat helpers so breakage is isolated.
+- **Docs layout:** Root **`README.md`** describes the workspace. Each mod’s player-facing copy and release history live in **`mods/<mod_id>/README.md`** and **`mods/<mod_id>/CHANGELOG.md`**. Root **`CHANGELOG.md`** records repo-wide changes only (not per-mod version history).
 
 ---
 
@@ -156,12 +157,17 @@ This document is the single plan we follow to migrate XP_Stream into a multi-mod
      - Publishes to **Modrinth** and **CurseForge** using that mod’s `modrinth_project_id` and `curseforge_project_id` from `mods/<id>/gradle.properties`.
      - **Uploads the loader-built JARs:** Modrinth and CurseForge tasks must upload the **actual mod artifacts**—the Fabric and NeoForge JARs produced by the loader builds (e.g. `xp_stream-fabric-<mc_version>.jar`, `xp_stream-neoforge-<mc_version>.jar`), not just Maven publication components.
      - Reads `MODRINTH_TOKEN` and `CURSEFORGE_TOKEN` from environment (or CI secrets); never store tokens in repo.
+   - Plugin decision:
+     - Use `com.modrinth.minotaur` for Modrinth publishing.
+     - Use `io.github.themrmilchmann.curseforge-publish` for CurseForge publishing.
+     - Do not plan around `CurseGradle` unless the chosen CurseForge plugin later proves insufficient.
    - Maven publishing can remain as currently set up (separate/optional).
 
 2. **Optional `publishAll`**
    - Add a root (or root-level) task `publishAll` that depends on each mod’s publish task. Useful for a full release train.
 
 3. **Document**
+   - In README or `Docs/`, document the `just` workflow as the primary entrypoint for publishing, with raw Gradle task paths as a lower-level fallback.
    - In README or `Docs/`, document how to run “publish XP_Stream only” and “publish all mods,” and that tokens must be set in env or CI.
 
 ---

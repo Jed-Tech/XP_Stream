@@ -5,6 +5,6 @@ import net.fabricmc.api.ModInitializer;
 public final class SaturationRegenFabricMod implements ModInitializer {
     @Override
     public void onInitialize() {
-        // Scaffold: add init logic
+        SaturationRegenConfig.loadFromDisk();
     }
 }

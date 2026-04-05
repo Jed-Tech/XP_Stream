@@ -44,7 +44,7 @@ function Get-ChangelogSection {
 
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $modPropertiesPath = Join-Path $repoRoot "mods\$Mod\gradle.properties"
-$changelogPath = Join-Path $repoRoot "CHANGELOG.md"
+$changelogPath = Join-Path $repoRoot "mods\$Mod\CHANGELOG.md"
 
 if (-not (Test-Path $modPropertiesPath)) {
     throw "Mod properties file not found: $modPropertiesPath"

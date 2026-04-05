@@ -16,6 +16,9 @@ doctor:
   just --version
   ./gradlew.bat --version
 
+publish-check mod="xp_stream" loader="":
+  powershell -NoProfile -Command "if ('{{loader}}' -eq '') { powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\publish-preflight.ps1 -Mod {{mod}} } else { powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\publish-preflight.ps1 -Mod {{mod}} -Loader {{loader}} }"
+
 # Happy-path aliases for xp_stream
 xp-stream-fabric-client:
   just run-client xp_stream fabric
@@ -34,6 +37,9 @@ xp-stream-build:
 
 xp-stream-publish:
   just publish xp_stream
+
+xp-stream-publish-check:
+  just publish-check xp_stream
 
 xp-stream-github-release:
   just github-release xp_stream
@@ -59,6 +65,9 @@ saturation-regen-build:
 
 saturation-regen-publish:
   just publish saturation_regen
+
+saturation-regen-publish-check:
+  just publish-check saturation_regen
 
 # Parameterized recipes for advanced use
 build mod="xp_stream":

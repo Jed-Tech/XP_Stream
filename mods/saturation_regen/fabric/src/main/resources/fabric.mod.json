@@ -3,7 +3,7 @@
   "id": "${mod_id}",
   "version": "${version}",
   "name": "${mod_name}",
-  "description": "Scaffold mod — add description.",
+  "description": "Server-side natural regen from saturation without a full hunger bar, gated by a configurable minimum food level. Preserves vanilla cadence and exhaustion.",
   "authors": ["Jeff E"],
   "license": "CC-BY-NC-ND-4.0",
   "environment": "*",

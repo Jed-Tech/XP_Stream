@@ -1,67 +1,40 @@
-# XP Stream
+# XP_Stream (mono-repo)
 
-**Faster XP pickup. Same vanilla feel.**
+This repository builds and maintains multiple Minecraft mods from one Gradle workspace.
 
-Absorbs XP orbs faster without clumping, while preserving the magic feel and core mechanics of normal XP collection. All the orbs with no loss of XP!
+| Mod | Description |
+|-----|-------------|
+| [**XP Stream**](mods/xp_stream/README.md) | Faster XP orb pickup — vanilla feel, smoother absorption. |
+| [**Saturation Regen**](mods/saturation_regen/README.md) | Natural regeneration that respects saturation without forcing a full hunger bar first. |
 
----
-
-## ✨ Why XP Stream?
-
-Large XP drops in vanilla pile up and take too long to absorb.
-XP Stream removes the pickup delay so XP flows smoothly toward players, without changing how it looks or behaves.
-
-It feels like vanilla Minecraft… just smoother.
+Design notes, publishing, and internal docs live under [`Docs/`](Docs/).
 
 ---
 
-## ⚙️ What It Does
+## Requirements
 
-- Faster XP absorption for large drops
-- Preserves vanilla orb motion, sounds, and Mending
-- No XP loss: every orb grants full value
-- Cleaner visuals with fewer lingering orbs
-- Server-side only: no client install needed
-- Safe for single player or multiplayer
+- **Java** — use the toolchain configured by this repo (see `just doctor` and Gradle).
+- **Git** — for version control and release tags.
 
 ---
 
-## 🧠 Vanilla-Plus Design
+## Build & run (`just`)
 
-XP Stream is **not** an orb-clumping mod.
+From the repo root:
 
-Instead of changing XP behavior, it adjusts *how fast* orbs are collected, keeping the familiar vanilla feel while avoiding pools of XP that just won't absorb.
+- List recipes: `just`
+- Build everything: `just build-all`
+- Build one mod: `just build xp_stream` or `just build saturation_regen`
+- Run a dev client: `just run-client <mod> <fabric|neoforge>`
 
----
-
-## 🏭 Great for XP Farms
-
-Ideal for mob farms, spawners, boss fights, and XP farms.
-Fewer lingering orbs means a **performance improvement** over vanilla.
+See [`Docs/justfile.md`](Docs/justfile.md) for more detail.
 
 ---
 
-## 🔧 Configuration (Optional)
+## Changelogs
 
-XP Stream works out of the box, but there are options for advanced configuration:
+- **Repository / workspace** — [`CHANGELOG.md`](CHANGELOG.md) (tooling, layout, shared infrastructure).
+- **XP Stream** — [`mods/xp_stream/CHANGELOG.md`](mods/xp_stream/CHANGELOG.md).
+- **Saturation Regen** — [`mods/saturation_regen/CHANGELOG.md`](mods/saturation_regen/CHANGELOG.md).
 
-Config file: `config/xp_stream.json`
-
-```json
-{
-  "maxBurstOrbs": 6,
-  "debug": false
-}
-```
-
-- `maxBurstOrbs` (default: 6) higher = faster absorption of XP orbs.
-- Setting `maxBurstOrbs` to `0` effectively disables the mod.
-
----
-
-
-## 📦 Installation
-
-1. Install Fabric or NeoForge Loader
-2. Drop the mod jar into your `mods` folder
-3. Start the server
+Release automation and publishing are documented in [`Docs/publishing.md`](Docs/publishing.md), [`Docs/release_checklist.md`](Docs/release_checklist.md), and [`Docs/github_release.md`](Docs/github_release.md).

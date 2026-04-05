@@ -17,6 +17,10 @@
 - `just xp-stream-build`
 - `just xp-stream-fabric-client`
 - `just xp-stream-neoforge-client`
+- `just xp-stream-publish-check`
+- `just xp-stream-publish`
+- `just publish-check xp_stream`
+- `just publish xp_stream fabric`
 - `just saturation-regen-build`
 - `just build-all`
 - `just clean`
@@ -27,6 +31,15 @@
 - Keep parameterized recipes small and predictable.
 - Prefer `./gradlew.bat` over global `gradle`.
 - Keep examples and defaults centered on `xp_stream`.
+- Treat publishing as explicit, manual/local work rather than a default workflow.
+
+## Publishing Notes
+- Use `just xp-stream-publish-check` before a real `xp_stream` publish.
+- Use `just xp-stream-publish` for the normal `xp_stream` publish path.
+- Use `just publish-check <mod> [loader]` to validate publishing prerequisites without uploading anything.
+- Use `just publish <mod> <loader>` when you need a single-loader publish.
+- `saturation_regen` publish commands exist, but that mod is scaffolded-only for now.
+- See `Docs/publishing.md` for publishing details and `Docs/release_checklist.md` for the operator checklist.
 
 ## Maintaining the justfile
 - Validate Gradle task paths before adding new wrappers.
