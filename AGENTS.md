@@ -15,18 +15,20 @@
 - `just`
 - `jq`
 - `rg`
+- `fd`
 - `node`
 - `npm`
 - `python`
-- `pip`
+- `uv`
 - Context7 MCP
 
 ## Tool Usage
-- Use `just` for workflows.
-- `git` = version control.
-- `gh` = GitHub (PRs, issues, Actions).
-- `jq` = JSON parsing.
-- `rg` = code search.
+- `just` = run `./justfile` tasks (build, clean, doctor, …).
+- `git` = commits, history, diffs.
+- `gh` = GitHub: PRs, issues, Actions, `gh api`.
+- `jq` = query/filter JSON (stdin or files).
+- `rg` = search file contents by pattern (ripgrep).
+- `fd` = find files by name/path; use `rg` to search inside file contents.
 - **Context7 MCP** = up-to-date docs for libraries, frameworks, SDKs, APIs, CLIs, and cloud services.
 
 ## Environment
@@ -54,13 +56,3 @@ More command recipes available in `./justfile`.
 - Do not publish unless explicitly requested
 - Do not change versioning or publishing config without approval
 - Use the repo-configured Java toolchain
-
-## Change Workflow (Skills-Driven)
-- Begin plan-change discussion to clarify intent and naming
-- Start with skill: plan-change
-- Scope = `xp_stream`, `saturation_regen`, or `_Repo`
-- Use Skills to perform each phase: plan-change, implement-change, document-change
-
-### Structure
-- Active: `Docs/<scope>/Specs/<change-name>/`
-- Archive: `Docs/<scope>/Archive/<change-name>/`
