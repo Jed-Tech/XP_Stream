@@ -22,7 +22,7 @@ Lower-level Gradle tasks:
 - Fabric to Modrinth only: `.\gradlew :mods:xp_stream:publishFabric:modrinth`
 - Fabric to CurseForge only: `.\gradlew :mods:xp_stream:publishFabric:publishToCurseForge`
 - NeoForge to Modrinth only: `.\gradlew :mods:xp_stream:publishNeoForge:modrinth`
-- NeoForge to CurseForge only: `.\gradlew :mods:xp_stream:publishNeoForge:publishToCurseForge`
+- NeoForge to CurseForge only: `.\gradlew :mods:xp_stream:neoforge:publishNeoForgePublicationToCurseForge`
 
 ## Release notes (changelogs)
 
@@ -40,6 +40,7 @@ Why these plugins:
 - They upload the actual loader-built JARs, not just Maven publications.
 - They fit the per-mod and per-loader task model used by this repo.
 - They work with tokens supplied through environment variables or CI secrets.
+- CurseForge uses a mixed strategy for `xp_stream`: NeoForge uses the ModDevGradle integration, while Fabric keeps a manual publication that derives CurseForge game versions from `minecraft_version`.
 
 Not selected right now:
 

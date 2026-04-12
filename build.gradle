@@ -52,8 +52,8 @@ modIdsForPublish.each { modId ->
     tasks.register(publishTaskName) {
         group = "publishing"
         description = "Publish ${modId} to Modrinth and CurseForge (Fabric + NeoForge, one version/file per loader)"
-        dependsOn ":mods:${modId}:publishFabric:modrinth", ":mods:${modId}:publishFabric:publishToCurseForge",
-                  ":mods:${modId}:publishNeoForge:modrinth", ":mods:${modId}:publishNeoForge:publishToCurseForge"
+        dependsOn ":mods:${modId}:publishNeoForge:modrinth", ":mods:${modId}:neoforge:publishNeoForgePublicationToCurseForge",
+                  ":mods:${modId}:publishFabric:modrinth", ":mods:${modId}:publishFabric:publishFabricPublicationToCurseForge"
     }
 }
 tasks.register("publishAll") {

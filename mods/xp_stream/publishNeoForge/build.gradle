@@ -1,9 +1,10 @@
-// Publishes one Modrinth version (NeoForge) + one CurseForge file per mod release. One file per version.
-// Tokens: MODRINTH_TOKEN, CURSEFORGE_TOKEN (env/CI only).
+// Publishes one Modrinth version (NeoForge).
+// CurseForge publishing is configured in :mods:xp_stream:neoforge so the plugin can
+// infer loader and Minecraft metadata from ModDevGradle.
+// Tokens: MODRINTH_TOKEN (env/CI only).
 
 plugins {
     id "com.modrinth.minotaur" version "2.+"
-    id "io.github.themrmilchmann.curseforge-publish" version "0.8.0"
 }
 
 def modId = "xp_stream"
@@ -12,7 +13,6 @@ file("${project.projectDir}/../gradle.properties").withInputStream { parentProps
 def modVersion = parentProps.getProperty("mod_version", "0.0.0")
 def modName = parentProps.getProperty("mod_name", modId)
 def modrinthProjectId = parentProps.getProperty("modrinth_project_id", "").trim()
-def curseforgeProjectId = parentProps.getProperty("curseforge_project_id", "").trim()
 def mcVersion = rootProject.findProperty("minecraft_version") ?: "26.1-snapshot-7"
 
 def getChangelogSection = {
@@ -49,24 +49,3 @@ if (modrinthProjectId) {
     }
 }
 
-// CurseForge: one file (NeoForge)
-if (curseforgeProjectId) {
-    curseforge {
-        apiToken = System.getenv("CURSEFORGE_TOKEN")
-        publications {
-            register("neoforge") {
-                projectId = curseforgeProjectId
-                artifacts.register("main") {
-                    from(project(":mods:${modId}:neoforge").tasks.named("jar"))
-                    displayName = "${modName} ${modVersion} (NeoForge) for ${mcVersion}"
-                    releaseType = "release"
-                    changelog {
-                        format = "markdown"
-                        from(getChangelogSection())
-                    }
-                    gameVersions.add(mcVersion)
-                }
-            }
-        }
-    }
-}

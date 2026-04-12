@@ -1,9 +1,13 @@
+import io.github.themrmilchmann.gradle.publish.curseforge.ChangelogFormat
+import io.github.themrmilchmann.gradle.publish.curseforge.GameVersion
+import io.github.themrmilchmann.gradle.publish.curseforge.ReleaseType
+
 // Publishes one Modrinth version (Fabric) + one CurseForge file per mod release. One file per version.
 // Tokens: MODRINTH_TOKEN, CURSEFORGE_TOKEN (env/CI only).
 
 plugins {
     id "com.modrinth.minotaur" version "2.+"
-    id "io.github.themrmilchmann.curseforge-publish" version "0.8.0"
+    id "io.github.themrmilchmann.curseforge-publish" version "0.9.0"
 }
 
 def modId = "xp_stream"
@@ -14,6 +18,18 @@ def modName = parentProps.getProperty("mod_name", modId)
 def modrinthProjectId = parentProps.getProperty("modrinth_project_id", "").trim()
 def curseforgeProjectId = parentProps.getProperty("curseforge_project_id", "").trim()
 def mcVersion = rootProject.findProperty("minecraft_version") ?: "26.1-snapshot-7"
+
+def deriveCurseForgeMinecraftVersion = { String version ->
+    def matcher = (version =~ /^(\d+)\.(\d+)(?:\.(\d+))?$/)
+    if (!matcher.matches()) {
+        throw new GradleException("Unsupported CurseForge Minecraft version format: ${version}")
+    }
+
+    def one = matcher.group(1)
+    def major = matcher.group(2)
+    def minor = matcher.group(3) ?: "0"
+    new GameVersion("minecraft-${one}-${major}", "${one}-${major}-${minor}")
+}
 
 def getChangelogSection = {
     def changelogFile = rootProject.file("mods/xp_stream/CHANGELOG.md")
@@ -56,15 +72,16 @@ if (curseforgeProjectId) {
         publications {
             register("fabric") {
                 projectId = curseforgeProjectId
+                gameVersion("modloader", "fabric")
+                gameVersions.add(deriveCurseForgeMinecraftVersion(mcVersion))
                 artifacts.register("main") {
                     from(project(":mods:${modId}:fabric").tasks.named("jar"))
                     displayName = "${modName} ${modVersion} (Fabric) for ${mcVersion}"
-                    releaseType = "release"
+                    releaseType = ReleaseType.RELEASE
                     changelog {
-                        format = "markdown"
+                        format = ChangelogFormat.MARKDOWN
                         from(getChangelogSection())
                     }
-                    gameVersions.add(mcVersion)
                 }
             }
         }

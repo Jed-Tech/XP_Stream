@@ -1,5 +1,6 @@
 plugins {
     id 'net.neoforged.moddev' version "${moddevgradle_version}"
+    id "io.github.themrmilchmann.curseforge-publish" version "0.9.0"
     id 'maven-publish'
 }
 
@@ -55,6 +56,45 @@ processResources {
                "mod_name": project.mod_name,
                "neoforge_version": project.neoforge_version,
                "minecraft_version": project.minecraft_version
+    }
+}
+
+def getChangelogSection = {
+    def changelogFile = rootProject.file("mods/xp_stream/CHANGELOG.md")
+    if (!changelogFile.exists()) {
+        throw new GradleException("CHANGELOG.md not found at ${changelogFile}")
+    }
+
+    def escapedVersion = java.util.regex.Pattern.quote(project.version.toString())
+    def matcher = (changelogFile.getText("UTF-8") =~ /(?ms)^## \[${escapedVersion}\].*?(?=^## \[|\z)/)
+    if (!matcher.find()) {
+        throw new GradleException("Could not find CHANGELOG section for version ${project.version} in ${changelogFile}")
+    }
+
+    def lines = matcher.group(0).readLines()
+    while (!lines.isEmpty() && (lines[-1].trim().isEmpty() || lines[-1].trim() == "---")) {
+        lines.remove(lines.size() - 1)
+    }
+
+    return lines.join(System.lineSeparator()).trim()
+}
+
+if (project.findProperty("curseforge_project_id")) {
+    curseforge {
+        apiToken = System.getenv("CURSEFORGE_TOKEN")
+        publications {
+            named("neoForge") {
+                projectId = project.curseforge_project_id
+                artifacts.named("main") {
+                    displayName = "${project.mod_name} ${project.version} (NeoForge) for ${project.minecraft_version}"
+                    releaseType = io.github.themrmilchmann.gradle.publish.curseforge.ReleaseType.RELEASE
+                    changelog {
+                        format = io.github.themrmilchmann.gradle.publish.curseforge.ChangelogFormat.MARKDOWN
+                        from(getChangelogSection())
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -7,7 +7,7 @@ This checklist is the operator workflow for releasing a mod from this repo.
 Current intended release target:
 
 - `xp_stream`: publishable when project IDs and tokens are configured
-- `saturation_regen`: scaffolded only for now, not intended for public publishing yet
+- `saturation_regen`: not a normal public release target yet
 
 Current release model:
 
@@ -20,7 +20,7 @@ Current release model:
 Use this flow for a normal `xp_stream` release or hotfix.
 
 1. Update `mods/xp_stream/gradle.properties` with the target `mod_version`.
-2. Update **`mods/xp_stream/CHANGELOG.md`** so it includes a `## [<mod_version>]` section for that release.
+2. Update `mods/xp_stream/CHANGELOG.md` so it includes a `## [<mod_version>]` section for that release.
 3. Confirm the branch's Minecraft and loader versions are correct for the release line.
 4. Build the mod with `just xp-stream-build`.
 5. Smoke-test the mod on the loaders you intend to publish.
@@ -32,17 +32,19 @@ Use this flow for a normal `xp_stream` release or hotfix.
    - NeoForge upload present
    - version names match the expected loader-specific naming
    - game version is correct
-10. Create the GitHub release metadata:
+10. On CurseForge, review any file metadata that still needs manual adjustment.
+    - Example: Environment may still need to be set on the CurseForge website.
+11. Create the GitHub release metadata:
     - dry run: `just xp-stream-github-release-dry-run`
     - real release: `just xp-stream-github-release`
-11. Verify the GitHub release notes match the intended **`mods/xp_stream/CHANGELOG.md`** entry.
+12. Verify the GitHub release notes match the intended `mods/xp_stream/CHANGELOG.md` entry.
 
 ## Full Release Train Checklist
 
 Use this flow only when more than one mod is intentionally release-ready.
 
 1. Update `mod_version` for each mod that is part of the release train.
-2. Update each mod’s **`mods/<mod_id>/CHANGELOG.md`** with the `## [<mod_version>]` sections needed for the released mods.
+2. Update each mod's `mods/<mod_id>/CHANGELOG.md` with the `## [<mod_version>]` sections needed for the released mods.
 3. Build and smoke-test each released mod.
 4. Confirm all required platform IDs and local tokens are configured.
 5. Publish with `.\gradlew publishAll` or the equivalent per-mod `just` commands.
@@ -57,6 +59,9 @@ If a publish only partially succeeds:
 - Check which platform and loader already succeeded.
 - Confirm whether the target platform allows retrying the same version number cleanly.
 - Retry only the missing platform or loader task when possible.
+- `xp_stream` uses different raw CurseForge task paths by loader:
+  - NeoForge: `:mods:xp_stream:neoforge:publishNeoForgePublicationToCurseForge`
+  - Fabric: `:mods:xp_stream:publishFabric:publishFabricPublicationToCurseForge`
 - If Modrinth succeeds and CurseForge fails because of game version validation, fix the CurseForge mapping issue before retrying CurseForge.
 - Use `just publish <mod> <loader>` if you only need to retry one loader path.
 
@@ -64,4 +69,3 @@ If a publish only partially succeeds:
 
 - `Docs/publishing.md`
 - `Docs/github_release.md`
-- `Docs/publishing_tasks.md`
