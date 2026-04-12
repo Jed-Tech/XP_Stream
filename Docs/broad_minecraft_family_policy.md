@@ -22,9 +22,7 @@ The **whole mod** (common code + Fabric + NeoForge jars) should declare **broad 
    **`versionRange = "[[MC_FAMILY]-,)"`**  
    Example: `[MC_FAMILY]` = `26.1` → `"[26.1-,)"`.
 
-2. **NeoForge — `neoforge` dependency:** keep **compile-aligned minimum**, open upper:  
-   **`versionRange = "[${neoforge_version},)"`**  
-   (`neoforge_version` in `gradle.properties` is whatever you actually build against.)
+2. **NeoForge — `neoforge` dependency:** use a **broad runtime floor** in `neoforge.mods.toml`, **not** the same string as the ModDevGradle compile pin. In this repo, **`versionRange = "[${neoforge_dependency_minimum},)"`** with **`neoforge_dependency_minimum`** in root **`gradle.properties`** (e.g. `26.1.0` for the 26.1 line). **`neoforge_version`** stays the **exact** NeoForge you compile against; it must not be reused for `[[dependencies]]` on `neoforge` or players on older 26.1.x NeoForge builds will be rejected.
 
 3. **Fabric — `minecraft` dependency:** use a **low, stable floor** (`[FABRIC_MC_FLOOR]`) so pre/RC/GA builds stay accepted unless you deliberately tighten after testing. Prefer the simplest range Fabric accepts; avoid over-fitting one pre-release label.
 
@@ -49,7 +47,7 @@ For **each** mod under `mods/<mod_id>/`:
 ### NeoForge: `minecraft` range
 
 - Set **`modId = "minecraft"`** to **`versionRange = "[[MC_FAMILY]-,)"`** (adjust `[MC_FAMILY]-` only if NeoForge’s version ordering for that cycle requires a different prefix—verify with a failing loader if needed).
-- Keep **`neoforge`** on **`"[${neoforge_version},)"`**.
+- Keep **`neoforge`** on **`"[${neoforge_dependency_minimum},)"`** (broad floor; see key policy §2).
 
 ### Fabric: `depends.minecraft`
 

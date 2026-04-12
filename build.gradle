@@ -26,7 +26,7 @@ allprojects {
             }
         }
         // Branch-scoped versions (loader build scripts read project.minecraft_version etc.)
-        ["minecraft_version", "fabric_loader_version", "fabric_api_version", "neoforge_version", "moddevgradle_version"].each { key ->
+        ["minecraft_version", "fabric_loader_version", "fabric_api_version", "neoforge_version", "neoforge_dependency_minimum", "moddevgradle_version"].each { key ->
             def v = rootProject.findProperty(key)
             if (v != null) project.ext.set(key, v)
         }

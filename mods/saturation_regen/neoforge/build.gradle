@@ -22,6 +22,7 @@ neoForge {
 
 dependencies {
     implementation project(":mods:saturation_regen:common")
+    implementation "com.google.code.gson:gson:2.10.1"
 }
 
 jar {
@@ -35,12 +36,14 @@ sourcesJar {
 processResources {
     inputs.property "version", project.version
     inputs.property "neoforge_version", project.neoforge_version
+    inputs.property "neoforge_dependency_minimum", project.neoforge_dependency_minimum
     inputs.property "minecraft_version", project.minecraft_version
     filesMatching("META-INF/neoforge.mods.toml") {
         expand "version": project.version,
                "mod_id": project.mod_id,
                "mod_name": project.mod_name,
                "neoforge_version": project.neoforge_version,
+               "neoforge_dependency_minimum": project.neoforge_dependency_minimum,
                "minecraft_version": project.minecraft_version
     }
 }

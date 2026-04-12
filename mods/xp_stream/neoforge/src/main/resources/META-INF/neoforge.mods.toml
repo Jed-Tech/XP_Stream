@@ -7,13 +7,14 @@ modId = "${mod_id}"
 version = "${version}"
 displayName = "${mod_name}"
 description = "Server-side XP pickup smoothing that keeps the vanilla orb feel."
-authors = ["Jeff E"]
+authors = ["Jed-Tech"]
 license = "CC-BY-NC-ND-4.0"
+logoFile = "xp_stream_logo.png"
 
 [[dependencies.${mod_id}]]
 modId = "neoforge"
 mandatory = true
-versionRange = "[${neoforge_version},)"
+versionRange = "[${neoforge_dependency_minimum},)"
 ordering = "NONE"
 side = "BOTH"
 

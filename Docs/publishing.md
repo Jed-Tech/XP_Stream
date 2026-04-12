@@ -12,8 +12,8 @@ Common commands:
 - Publish `xp_stream`: `just xp-stream-publish`
 - Publish `saturation_regen`: `just saturation-regen-publish`
 - Check publish readiness with the parameterized recipe: `just publish-check xp_stream`
-- Publish one mod with the parameterized recipe: `just publish xp_stream`
-- Publish one loader only: `just publish xp_stream fabric`
+- Publish one mod with **both** loaders (default): `just publish xp_stream` (same as `just publish xp_stream all`)
+- Publish **one** loader only: `just publish xp_stream fabric` or `just publish xp_stream neoforge`
 
 Lower-level Gradle tasks:
 

@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.2.1] - 2026-04-12
+
+### Fixed
+- **NeoForge installs** on older **26.1.x** loader builds (not only the exact version we compile against) are accepted again — metadata uses a broad minimum NeoForge line, same idea as the Minecraft range.
+
+---
+
+## [0.2.0] - 2026-04-12
+
+### Added
+- **NeoForge** — play with Fabric or NeoForge; same optional JSON config as before.
+
+### Changed
+- **Consistent healing speed** when you're almost full: hunger 18-19 no longer drops to a slower vanilla-only step; it matches the same “saturation-driven” pace as the rest of the widened range (default settings).
+
+### Compatibility (tested)
+- **Fabric:** Minecraft 26.1.2
+- **NeoForge:** Minecraft 26.1.2
+
+---
+
 ## [0.1.1] - 2026-04-11
 
 ### Changed

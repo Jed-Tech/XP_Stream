@@ -72,10 +72,6 @@ if ([string]::IsNullOrWhiteSpace($curseforgeToken)) {
     $issues.Add("Environment variable 'CURSEFORGE_TOKEN' is not set.")
 }
 
-if ($Mod -eq "saturation_regen") {
-    $notes.Add("saturation_regen is currently scaffolded-only for publishing.")
-}
-
 Write-Host "Publish preflight"
 Write-Host "  Mod: $Mod"
 Write-Host "  Loader: $(if ([string]::IsNullOrWhiteSpace($Loader)) { 'all' } else { $Loader })"

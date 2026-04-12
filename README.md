@@ -2,10 +2,10 @@
 
 This repository builds and maintains multiple Minecraft mods from one Gradle workspace.
 
-| Mod | Description |
-| --- | --- |
-| **[XP Stream](mods/xp_stream/README.md)** | Faster XP orb pickup -- vanilla feel, smoother absorption. |
-| **[Saturation Regen](mods/saturation_regen/README.md)** | Natural regeneration that respects saturation without forcing a full hunger bar first. |
+| Mod | Description | Loaders |
+| --- | --- | --- |
+| **[XP Stream](mods/xp_stream/README.md)** | Faster XP orb pickup -- vanilla feel, smoother absorption. | Fabric, NeoForge |
+| **[Saturation Regen](mods/saturation_regen/README.md)** | Natural regeneration that respects saturation without forcing a full hunger bar first. | Fabric, NeoForge |
 
 | Mod | Modrinth | CurseForge |
 | --- | --- | --- |

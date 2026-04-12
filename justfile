@@ -79,8 +79,9 @@ run-client mod="xp_stream" loader="fabric":
 run-server mod="xp_stream" loader="fabric":
   ./gradlew.bat ":mods:{{mod}}:{{loader}}:runServer"
 
-publish mod="xp_stream" loader="":
-  powershell -NoProfile -Command "$cfTask = if ('{{loader}}' -eq 'neoforge') { ':mods:{{mod}}:neoforge:publishNeoForgePublicationToCurseForge' } elseif ('{{loader}}' -eq 'fabric') { ':mods:{{mod}}:publishFabric:publishFabricPublicationToCurseForge' } else { $null }; $task = if ('{{loader}}' -eq '') { ':mods:{{mod}}:publishNeoForge:modrinth', ':mods:{{mod}}:neoforge:publishNeoForgePublicationToCurseForge', ':mods:{{mod}}:publishFabric:modrinth', ':mods:{{mod}}:publishFabric:publishFabricPublicationToCurseForge' } else { ':mods:{{mod}}:publish' + ('{{loader}}'.Substring(0,1).ToUpper() + '{{loader}}'.Substring(1)) + ':modrinth', $cfTask }; ./gradlew.bat $task"
+# Loader: default `all` = Fabric + NeoForge (four upload tasks). Use `fabric` or `neoforge` for one loader.
+publish mod="xp_stream" loader="all":
+  powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\publish-run.ps1 -Mod "{{mod}}" -Loader "{{loader}}"
 
 github-release mod="xp_stream":
   powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\github-release.ps1 -Mod {{mod}}

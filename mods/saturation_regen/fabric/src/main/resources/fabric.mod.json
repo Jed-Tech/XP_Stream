@@ -4,8 +4,9 @@
   "version": "${version}",
   "name": "${mod_name}",
   "description": "Server-side natural regen from saturation without a full hunger bar, gated by a configurable minimum food level. Preserves vanilla cadence and exhaustion.",
-  "authors": ["Jeff E"],
+  "authors": ["Jed-Tech"],
   "license": "CC-BY-NC-ND-4.0",
+  "icon": "assets/saturation_regen/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [

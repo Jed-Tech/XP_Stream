@@ -14,11 +14,10 @@ Implemented already:
   - CurseForge: `io.github.themrmilchmann.curseforge-publish`
 - Publishing documentation exists in `Docs/publishing.md`.
 
-Not finished yet:
+Not finished yet (as of this doc; revisit periodically):
 
-- The publish path has not been validated with a real publish-ready configuration in this repo.
+- The publish path may still need real end-to-end verification and failure-mode validation on each mod.
 - There is no CI-backed publishing workflow yet.
-- The publish path still needs real publish verification and failure-mode validation.
 - Supported environment metadata still needs to be confirmed and set appropriately on each platform.
 
 ## Goal
@@ -41,11 +40,11 @@ Tasks:
 
 - Fill in `modrinth_project_id` for `xp_stream` in `mods/xp_stream/gradle.properties`.
 - Fill in `curseforge_project_id` for `xp_stream` in `mods/xp_stream/gradle.properties`.
-- Leave `saturation_regen` platform IDs blank until that mod is intentionally made publishable.
+- Fill in `modrinth_project_id` and `curseforge_project_id` for `saturation_regen` in `mods/saturation_regen/gradle.properties` when that mod should upload to platforms.
 
 Done when:
 
-- Each publishable mod has explicit platform IDs in its own `gradle.properties`.
+- Each mod that publishes to Modrinth/CurseForge has explicit platform IDs in its own `gradle.properties`.
 
 ### 2. Validate environment-based auth
 
@@ -114,19 +113,18 @@ Done when:
 
 - The published/project metadata clearly communicates that the mod is server-oriented and also works on clients.
 
-### 4. Keep `saturation_regen` scaffolded-only for now
+### 4. `saturation_regen` platform IDs
 
-Status: completed
+Status: completed (updated 2026-04)
 
 Tasks:
 
-- Leave `modrinth_project_id` and `curseforge_project_id` blank for `saturation_regen` for now.
-- Document that `saturation_regen` publish wiring exists, but the mod is not intended for public publishing yet.
-- Ensure publishing docs and release docs do not imply that `saturation_regen` is release-ready.
+- Set `modrinth_project_id` and `curseforge_project_id` in `mods/saturation_regen/gradle.properties` when ready to publish (IDs match the live Modrinth and CurseForge projects).
+- Run `just saturation-regen-publish-check` before a real publish.
 
 Done when:
 
-- The intended non-publishable status of `saturation_regen` is explicitly documented.
+- Preflight passes with both IDs present and `saturation_regen` publish tasks target the correct platform projects.
 
 ### 5. Add a separate `release_checklist.md`
 

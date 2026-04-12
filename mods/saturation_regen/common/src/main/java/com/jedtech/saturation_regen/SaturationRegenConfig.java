@@ -1,13 +1,9 @@
-package com.jedtech.saturation_regen.fabric;
+package com.jedtech.saturation_regen;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.jedtech.saturation_regen.SaturationRegenConstants;
-import net.fabricmc.loader.api.FabricLoader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -16,12 +12,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Server-side JSON under {@code config/saturation_regen.json}.
- * Loaded once at mod init; restart to apply edits.
+ * Runtime configuration for saturation_regen.
+ * Stored as config/saturation_regen.json and loaded during loader startup.
  */
 public final class SaturationRegenConfig {
-    private static final Logger LOGGER = LoggerFactory.getLogger("saturation_regen");
-
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final String FILE_NAME = "saturation_regen.json";
 
@@ -30,13 +24,13 @@ public final class SaturationRegenConfig {
     public int regenHungerPenaltyLevel = SaturationRegenConstants.DEFAULT_REGEN_HUNGER_PENALTY_LEVEL;
 
     private static SaturationRegenConfig defaults() {
-        SaturationRegenConfig c = new SaturationRegenConfig();
-        c.regenHungerPenaltyLevel = SaturationRegenConstants.DEFAULT_REGEN_HUNGER_PENALTY_LEVEL;
-        return c;
+        SaturationRegenConfig config = new SaturationRegenConfig();
+        config.regenHungerPenaltyLevel = SaturationRegenConstants.DEFAULT_REGEN_HUNGER_PENALTY_LEVEL;
+        return config;
     }
 
-    public static void loadFromDisk() {
-        Path path = FabricLoader.getInstance().getConfigDir().resolve(FILE_NAME);
+    public static void load(Path configDir) {
+        Path path = configDir.resolve(FILE_NAME);
         if (Files.isRegularFile(path)) {
             try (Reader reader = Files.newBufferedReader(path)) {
                 SaturationRegenConfig merged = defaults();
@@ -47,24 +41,23 @@ public final class SaturationRegenConfig {
                 merged.clamp();
                 instance = merged;
             } catch (IOException | RuntimeException e) {
-                LOGGER.error("Failed to read {}, using defaults", path, e);
+                System.err.println("[saturation_regen] Failed to read " + path + ", using defaults: " + e.getMessage());
                 instance = defaults();
             }
         } else {
             instance = defaults();
-            saveToDisk();
+            save(path);
         }
     }
 
-    public static void saveToDisk() {
-        Path path = FabricLoader.getInstance().getConfigDir().resolve(FILE_NAME);
+    private static void save(Path path) {
         try {
             Files.createDirectories(path.getParent());
             try (Writer writer = Files.newBufferedWriter(path)) {
                 GSON.toJson(instance, writer);
             }
         } catch (IOException e) {
-            LOGGER.error("Failed to write {}", path, e);
+            System.err.println("[saturation_regen] Failed to write " + path + ": " + e.getMessage());
         }
     }
 

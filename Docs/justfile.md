@@ -37,8 +37,8 @@
 - Use `just xp-stream-publish-check` before a real `xp_stream` publish.
 - Use `just xp-stream-publish` for the normal `xp_stream` publish path.
 - Use `just publish-check <mod> [loader]` to validate publishing prerequisites without uploading anything.
-- Use `just publish <mod> <loader>` when you need a single-loader publish.
-- `saturation_regen` publish commands exist, but that mod is scaffolded-only for now.
+- Use `just publish <mod>` for **both** loaders (Modrinth + CurseForge for Fabric and NeoForge). Use `just publish <mod> fabric` or `just publish <mod> neoforge` for a **single-loader** publish.
+- `just saturation-regen-publish-check` / `just saturation-regen-publish` follow the same pattern as `xp_stream` once `mods/saturation_regen/gradle.properties` has Modrinth and CurseForge project IDs.
 - See `Docs/publishing.md` for publishing details and `Docs/release_checklist.md` for the operator checklist.
 
 ## Maintaining the justfile

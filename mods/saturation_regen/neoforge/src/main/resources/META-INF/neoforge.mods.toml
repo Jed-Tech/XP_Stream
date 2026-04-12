@@ -6,14 +6,15 @@ license = "CC-BY-NC-ND-4.0"
 modId = "${mod_id}"
 version = "${version}"
 displayName = "${mod_name}"
-description = "Scaffold mod — add description."
-authors = ["Jeff E"]
+description = "Server-side natural regen from saturation without a full hunger bar, gated by a configurable minimum food level. Preserves vanilla cadence and exhaustion."
+authors = ["Jed-Tech"]
 license = "CC-BY-NC-ND-4.0"
+logoFile = "saturation_regen_logo.png"
 
 [[dependencies.${mod_id}]]
 modId = "neoforge"
 mandatory = true
-versionRange = "[${neoforge_version},)"
+versionRange = "[${neoforge_dependency_minimum},)"
 ordering = "NONE"
 side = "BOTH"
 

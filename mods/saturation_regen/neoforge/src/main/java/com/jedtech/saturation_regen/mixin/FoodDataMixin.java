@@ -8,14 +8,8 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 /**
- * Minecraft 26.1.2 {@link FoodData#tick(ServerPlayer)}: exhaustion drain; then if {@code naturalRegen && saturation > 0
- * && hurt && food >= 20}, fast sat-based heal every 10 ticks; else if {@code naturalRegen && food >= 18 && hurt}, slow
- * heal every 80 ticks (+6 exhaustion each); ...
- * <p>
- * We replace the {@code >= 20} comparison constant so that {@code food > penalty && food < 20} can use the
- * <strong>fast</strong> branch (same 10-tick cadence as full hunger when saturation is available). Hunger at or below
- * the penalty stays on the slow path via an impossible threshold ({@code 21}). Hunger {@code >= 20} keeps vanilla
- * {@code 20}.
+ * Keep NeoForge behavior aligned with the Fabric implementation: widen the fast natural-regen branch to
+ * {@code food > penalty && food < 20} so 7-19 matches the same 10-tick cadence as full hunger when saturation allows.
  */
 @Mixin(FoodData.class)
 public abstract class FoodDataMixin {

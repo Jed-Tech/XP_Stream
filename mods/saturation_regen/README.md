@@ -15,7 +15,7 @@ Saturation Regen keeps **vanilla healing behavior and vanilla saturation drain**
   - and Hunger is above 6 points (3 drumsticks) -- *this is configurable*
 - Uses **vanilla timing and exhaustion** — no extra healing loops
 - Respects the **`naturalRegeneration`** gamerule
-- **Server-side Fabric** — works automatically with connected vanilla clients
+- **Server-side** on **Fabric** and **NeoForge** — vanilla clients do not need the mod
 
 ---
 
@@ -24,14 +24,12 @@ Saturation Regen keeps **vanilla healing behavior and vanilla saturation drain**
 This mod does **not**:
 - Add new healing mechanics
 - Override potion or effect-based healing
-- Change regen speed
-
-It only adjusts **when vanilla regen is allowed to start**, keeping saturation meaningful in real gameplay.
+It widens **which hunger levels** can use vanilla’s **fast** natural-regen branch (when saturation allows).
 
 ---
 
 ## 📦 Installation
 
-1. Install Fabric Loader
+1. Install Fabric or NeoForge Loader
 2. Drop the mod jar into your `mods` folder
 3. Start the server
