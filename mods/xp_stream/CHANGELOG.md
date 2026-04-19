@@ -5,26 +5,30 @@ All notable changes to **XP Stream** (the mod) are documented in this file. Entr
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.4] - 2026-04-19
 
-## [Unreleased]
+### Released (branch `monorepo/1.21.1`)
 
-### Changed (branch `monorepo/1.21.1` — NeoForge Phase 3)
+- **Vanilla pickup range** - Burst pickup now uses vanilla's on-foot pickup range, so nearby XP behind trapdoors and walls is collected more naturally than the older collision-only behavior.
 
-- **NeoForge / Minecraft 1.21.1:** Confirmed loader parity with Fabric on this branch: burst pickup uses vanilla on-foot pickup geometry (`getBoundingBox().inflate(1.0, 0.5, 1.0)`), same throughput and config semantics, and the same debug strings as Fabric (including when `maxBurstOrbs` is `0`).
+### Compatibility (validated)
+
+- **Fabric:** Minecraft 1.21.1
+- **NeoForge:** Minecraft 1.21.1, NeoForge 21.1.226
 
 ---
 
 ## [1.1.3] - 2026-04-12
 
 ### Fixed
-- **NeoForge installs** on older **26.1.x** loader builds (not only the exact version we compile against) are accepted again — metadata uses a broad minimum NeoForge line, same idea as the Minecraft range.
+- **NeoForge installs** on older **26.1.x** loader builds (not only the exact version we compile against) are accepted again - metadata uses a broad minimum NeoForge line, same idea as the Minecraft range.
 
 ---
 
 ## [1.1.2] - 2026-04-11
 
 ### Changed
-- Refreshed compatibility for the Minecraft `26.1.2` 
+- Refreshed compatibility for the Minecraft `26.1.2`
 
 ### Compatibility (tested)
 - **Fabric:** Minecraft 26.1.2
@@ -48,9 +52,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0] - 2026-03-26
 
 ### Changed
-- **Smarter XP burst range** — XP Stream now uses vanilla's on-foot pickup range, so nearby orbs hiding within range (like behind trapdoors and walls) are picked up more consistently to vanilla behavior.
-- **Clearer debug output** — Burst logs now show: `Burst pickup: X orbs (of Y in range).`
-- **Updated loader target** — NeoForge build target updated to `26.1.0.5-beta`.
+- **Smarter XP burst range** - XP Stream now uses vanilla's on-foot pickup range, so nearby orbs hiding within range (like behind trapdoors and walls) are picked up more consistently to vanilla behavior.
+- **Clearer debug output** - Burst logs now show: `Burst pickup: X orbs (of Y in range).`
+- **Updated loader target** - NeoForge build target updated to `26.1.0.5-beta`.
 
 ### Compatibility (tested)
 - **Fabric:** Minecraft 26.1
@@ -61,11 +65,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2026-03-24
 
 ### Changed
-- **1.0** — XP_Stream is updated for **Minecraft 26.1** (release): built and tested against current Fabric and NeoForge toolchains for 26.1 GA.
+- **1.0** - XP_Stream is updated for **Minecraft 26.1** (release): built and tested against current Fabric and NeoForge toolchains for 26.1 GA.
 
 ### Compatibility (tested)
 - **Fabric:** Minecraft 26.1 (client)
-- **NeoForge:** Minecraft 26.1, NeoForge 26.1.0.1-beta (client) — burst pickup OK (~200 XP in ≤4 s on both)
+- **NeoForge:** Minecraft 26.1, NeoForge 26.1.0.1-beta (client) - burst pickup OK (~200 XP in <=4 s on both)
 
 ---
 
@@ -83,7 +87,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.3.4] - 2026-02-18
 
 ### Added
-- **NeoForge 26.1 Snapshot 7 support** — XP_Stream builds and runs on NeoForge 26.1.0.0-alpha.12+snapshot-7 (Minecraft 26.1 Snapshot 7)
+- **NeoForge 26.1 Snapshot 7 support** - XP_Stream builds and runs on NeoForge 26.1.0.0-alpha.12+snapshot-7 (Minecraft 26.1 Snapshot 7)
 
 ### Changed
 - NeoForge: updated to 26.1.0.0-alpha.12+snapshot-7; Minecraft build target 26.1-snapshot-7
@@ -98,21 +102,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.3.3] - 2026-01-17
 
 ### Fixed
-- Gated debug logging behind config flag — debug messages now only appear when debug mode is enabled
+- Gated debug logging behind config flag - debug messages now only appear when debug mode is enabled
 
 ---
 
 ## [0.3.2] - 2026-01-17
 
 ### Fixed
-- Removed debug console spam — eliminated unconditional `System.out.println` in Fabric mixin
+- Removed debug console spam - eliminated unconditional `System.out.println` in Fabric mixin
 
 ---
 
 ## [0.3.1] - 2026-01-15
 
 ### Added
-- **Minecraft 26.1 Snapshot 3 support (Fabric)** — XP_Stream now works on Minecraft 26.1 Snapshot 3 for Fabric
+- **Minecraft 26.1 Snapshot 3 support (Fabric)** - XP_Stream now works on Minecraft 26.1 Snapshot 3 for Fabric
 
 ### Changed
 - Updated to Minecraft 26.1-snapshot-3
@@ -127,8 +131,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.3.0] - 2026-01-07
 
 ### Added
-- **Minecraft 26.1 Snapshot 2 support** — XP_Stream now works on Minecraft 26.1 Snapshot 2 for both Fabric and NeoForge
-- Java 25 support — Updated toolchain to Java 25 (required for 26.1+)
+- **Minecraft 26.1 Snapshot 2 support** - XP_Stream now works on Minecraft 26.1 Snapshot 2 for both Fabric and NeoForge
+- Java 25 support - Updated toolchain to Java 25 (required for 26.1+)
 
 ### Changed
 - **Fabric:** Migrated from Yarn to Mojang mappings (Phase 0)
@@ -141,10 +145,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Performance:** 200 XP orbs now absorb in 3.8 seconds or less on Java 25 (verified on 26.1 Snapshot 2)
 
 ### Technical
-- Updated Java toolchain from 21 → 25 in `build.gradle`
+- Updated Java toolchain from 21 to 25 in `build.gradle`
 - Removed mappings configuration for Fabric (not needed for unobfuscated 26.1+ builds)
 - Updated `fabric.mod.json` to use version range `">=26.1-alpha.2"` for compatibility
-- Verified mixin compatibility — all targets remain accessible on 26.1
+- Verified mixin compatibility - all targets remain accessible on 26.1
 - Both Fabric and NeoForge modules verified working with identical functionality
 
 ### Fixed
@@ -155,7 +159,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.1] - 2026-01-03
 
 ### Changed
-- **Improved JAR naming** — JARs now include Minecraft version in filename (e.g., `xp_stream-fabric-1.21.11-0.2.1.jar`)
+- **Improved JAR naming** - JARs now include Minecraft version in filename (e.g., `xp_stream-fabric-1.21.11-0.2.1.jar`)
 - Better version organization in `gradle.properties`
 
 ### Technical
@@ -168,13 +172,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0] - 2025-12-28
 
 ### Added
-- **NeoForge support** — XP_Stream now works on NeoForge 21.11.0-beta for Minecraft 1.21.11
-- Multi-loader architecture — Separate JARs for Fabric and NeoForge with shared core logic
-- Loader-specific mixins — Optimized implementation for each loader's mapping system
+- **NeoForge support** - XP_Stream now works on NeoForge 21.11.0-beta for Minecraft 1.21.11
+- Multi-loader architecture - Separate JARs for Fabric and NeoForge with shared core logic
+- Loader-specific mixins - Optimized implementation for each loader's mapping system
 
 ### Changed
 - Default `maxBurstOrbs` increased from 4 to 6 for faster absorption
-- Improved performance — 200 XP orbs now absorb in 2.5s (previously 4.2s with maxBurstOrbs=4)
+- Improved performance - 200 XP orbs now absorb in 2.5s (previously 4.2s with maxBurstOrbs=4)
 
 ### Technical
 - Added `neoforge/` module with ModDevGradle build system
@@ -186,7 +190,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2025-12-XX
 
 ### Added
-- **Initial release** — Fabric-only support for Minecraft 1.21.11
+- **Initial release** - Fabric-only support for Minecraft 1.21.11
 - Collision-based burst pickup system
 - Configurable `maxBurstOrbs` setting (default: 4)
 - Debug logging option
@@ -194,13 +198,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Features
 - Accelerates XP absorption while preserving vanilla mechanics
-- No XP loss — every orb awards full value
-- Mending compatibility — uses vanilla pickup path
-- Server-side only — clients don't need the mod
+- No XP loss - every orb awards full value
+- Mending compatibility - uses vanilla pickup path
+- Server-side only - clients don't need the mod
 
 ### Performance
 - 200 XP orbs: 4.2s absorption (vs 11.06s vanilla)
-- No per-tick scanning — only runs on collision events
+- No per-tick scanning - only runs on collision events
 - Minimal performance impact
 
 ### Tested

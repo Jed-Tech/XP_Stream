@@ -1,8 +1,34 @@
 # Phase 6 Overview: Validation and Release Readiness
 
+**Status:** Complete
+
 This phase performs final validation for the `monorepo/1.21.1` branch and determines whether the branch is ready for release planning. It owns runtime verification for both mods and both loaders, and it confirms that the branch is in a trustworthy state before any version finalization or publishing work begins.
 
 Project overview: [overview.md](overview.md)
+
+## Runtime validation log
+
+Manual checks during this phase (client/server). Add a row or bullet as each combination is verified.
+
+| When | Mod | Loader | Result | Notes |
+|------|-----|--------|--------|-------|
+| 2026-04-18 | `xp_stream` | Fabric | **Pass** | In-game behavior reported flawless (dev client: `just xp-stream-fabric-client`). |
+| 2026-04-19 | `xp_stream` | NeoForge | **Pass** | Dev client loads world; mod behavior OK (`just xp-stream-neoforge-client`). |
+| 2026-04-19 | `saturation_regen` | Fabric | **Pass** | Dev client loads world; mixin OK after `FoodData#tick(Player)` fix (`just saturation-regen-fabric-client`). |
+| 2026-04-19 | `saturation_regen` | NeoForge | **Pass** | Dev client loads world; mixin OK after `FoodData#tick(Player)` fix (`just saturation-regen-neoforge-client`). |
+
+**Remaining (optional):** dedicated-server smoke if you rely on that workflow; deeper threshold/gamerule spot checks if desired; final release execution is outside this phase.
+
+## Completion notes
+
+- **Runtime matrix:** all four supported mod/loader combinations were confirmed working on `monorepo/1.21.1`:
+  - `xp_stream` + Fabric
+  - `xp_stream` + NeoForge
+  - `saturation_regen` + Fabric
+  - `saturation_regen` + NeoForge
+- **Implementation confidence:** both mods now have successful build and runtime confirmation on the loaders this branch claims to support.
+- **Release readiness:** the branch is ready to move into release planning.
+- **Still outside scope:** no publishing, version finalization, or platform release work was performed in this phase.
 
 ## Dependencies / Preconditions
 

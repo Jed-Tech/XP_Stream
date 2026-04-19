@@ -67,6 +67,15 @@ Config file: `config/xp_stream.json`
 
 ---
 
+## Branch Compatibility
+
+- **`monorepo/1.21.1`** - validated on **Minecraft 1.21.1** for **Fabric** and **NeoForge**
+- **`main`** - current development branch for the newer Minecraft line supported there
+
+On `monorepo/1.21.1`, XP Stream includes the Vanilla Pickup range behavior and full loader parity for this branch.
+
+---
+
 ## Minecraft Versions (Repo Branches)
 
 - **`main`** - current development targets the latest supported Minecraft line in that branch (see root `gradle.properties` and mod changelogs).

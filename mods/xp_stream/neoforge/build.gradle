@@ -31,7 +31,11 @@ neoForge {
 
 dependencies {
     implementation project(":mods:xp_stream:common")
-    
+    // Minecraft 1.21.8 and below: plain library jars (e.g. :common) are not on the game classloader unless added here,
+    // or mixins that reference common types fail with ClassNotFoundException during bootstrap.
+    // See https://docs.neoforged.net/toolchain/docs/dependencies/nonmclibs/
+    additionalRuntimeClasspath project(":mods:xp_stream:common")
+
     // ModDevGradle automatically provides Minecraft and NeoForge dependencies
     // No need to explicitly add them
 }

@@ -37,6 +37,15 @@ It widens **which hunger levels** can use vanilla's fast natural-regen branch wh
 
 ---
 
+## Branch Compatibility
+
+- **`monorepo/1.21.1`** - validated on **Minecraft 1.21.1** for **Fabric** and **NeoForge**
+- **`main`** - current development branch for the newer Minecraft line supported there
+
+On `monorepo/1.21.1`, Saturation Regen has full Fabric + NeoForge parity for this branch.
+
+---
+
 ## Minecraft Versions (Repo Branches)
 
 - **`main`** - targets the current Minecraft line in that branch (see root `gradle.properties` and changelogs).

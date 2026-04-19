@@ -35,7 +35,7 @@ Phase 0 handoff: [phase_0_branch_foundation.md](phase_0_branch_foundation.md)
 
 ## Documentation Assumptions
 
-- The planning source of truth for this branch lives under `Docs/_Repo/Specs/1.21.1_plan/`.
+- The planning source of truth for this branch was archived under `Docs/_Repo/Archive/1.21.1_plan/` (formerly `Docs/_Repo/Specs/1.21.1_plan/`).
 - Phase docs are handoff specs for other agents and should stay focused, not exhaustive.
 - Repo-level docs may be updated when they help clarify the purpose of the branch, but detailed implementation planning should stay in the phase documents.
 

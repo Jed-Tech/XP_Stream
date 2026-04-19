@@ -4,6 +4,22 @@ All notable changes to the **XP_Stream repository** (workspace, tooling, shared 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2026-04-19]
+
+### Changed (1.21.1 branch - project completion)
+- Completed the `monorepo/1.21.1` support project for both mods.
+- `xp_stream` now has validated Fabric + NeoForge support on Minecraft `1.21.1`, including the Vanilla Pickup range behavior on this branch.
+- `saturation_regen` now has validated Fabric + NeoForge support on Minecraft `1.21.1`.
+- Phase planning, branch assumptions, and validation handoff docs were completed under `Docs/_Repo/Specs/1.21.1_plan/`.
+- Runtime validation confirmed all four supported combinations work:
+  - `xp_stream` + Fabric
+  - `xp_stream` + NeoForge
+  - `saturation_regen` + Fabric
+  - `saturation_regen` + NeoForge
+- Repo and mod docs were aligned so `main` vs `monorepo/1.21.1` branch expectations are clear.
+
+---
+
 ## [2026-04-18]
 
 ### Changed (1.21.1 branch - Phase 1 shared workspace retarget)

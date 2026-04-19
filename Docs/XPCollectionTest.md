@@ -11,6 +11,31 @@ Verify that all spawned experience is successfully collected and measure the tim
 - XP per orb: 1 point
 - Total expected XP: 200 points
 
+## Command block setup
+
+One-time: create the scoreboard objective (Java Edition):
+
+```
+/scoreboard objectives add xpTimer dummy
+```
+
+Arrange blocks **A → B → C** in order (B faces into C). Trigger **A** with redstone to start a run.
+
+| Block | Type | Conditional | Redstone | Command |
+|-------|------|-------------|----------|---------|
+| **A** | Impulse | Unconditional | Needs Redstone | `/scoreboard players set @p xpTimer 200` |
+| **B** | Repeat | Unconditional | Always Active | `/execute if score @p xpTimer matches 1.. run summon minecraft:experience_orb ~ ~ ~ {Value:1}` |
+| **C** | Chain | Unconditional | Always Active | `/scoreboard players remove @p[scores={xpTimer=1..}] xpTimer 1` |
+
+Optional — reset the player before a run (Impulse, Unconditional, Needs Redstone each):
+
+| Block | Command |
+|-------|---------|
+| **D** | `/xp set @p 0 levels` |
+| **E** | `/xp set @p 0 points` |
+
+Place the repeat/chain so `~ ~ ~` is the desired orb spawn position (e.g. next to the standing test position).
+
 ## Procedure
 
 1. Start XP spawning (1 orb per tick for 200 ticks).

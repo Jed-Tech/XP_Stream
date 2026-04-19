@@ -1,14 +1,16 @@
 package com.jedtech.saturation_regen.mixin;
 
 import com.jedtech.saturation_regen.SaturationRegenConfig;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 /**
- * Same contract as Fabric (Phase 4a): Minecraft 1.21.1 {@link FoodData#tick(ServerPlayer)} (Mojang mappings on NeoForge).
+ * Same contract as Fabric (Phase 4a): Minecraft 1.21.1 {@link FoodData#tick(Player)} — NeoForge bytecode uses {@link Player},
+ * not {@code ServerPlayer}, so this {@code @ModifyConstant} handler must take {@link Player} to match (Fabric Loom may still
+ * expose {@code ServerPlayer} in the same slot).
  * The fast saturation-driven natural-regen branch normally gates on {@code food >= 20}; this mixin replaces that {@code 20}
  * constant so eligible hunger levels below 20 (above the configured penalty) use the same fast cadence when saturation
  * allows. Hunger 18–19 stay in the widened range (see mod changelog 0.2.0).
@@ -19,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public abstract class FoodDataMixin {
 
     @ModifyConstant(method = "tick", constant = @Constant(intValue = 20))
-    private int saturationRegen$replaceFullFoodBarThresholdForSaturationRegen(int original, ServerPlayer player) {
+    private int saturationRegen$replaceFullFoodBarThresholdForSaturationRegen(int original, Player player) {
         if (player.level().isClientSide()) {
             return original;
         }

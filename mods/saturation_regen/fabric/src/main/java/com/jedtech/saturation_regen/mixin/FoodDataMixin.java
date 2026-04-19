@@ -1,14 +1,14 @@
 package com.jedtech.saturation_regen.mixin;
 
 import com.jedtech.saturation_regen.SaturationRegenConfig;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 /**
- * Minecraft 1.21.1 {@link FoodData#tick(ServerPlayer)} (Mojang mappings): vanilla orders exhaustion/saturation/hunger
+ * Minecraft 1.21.1 {@link FoodData#tick(Player)} (Mojang mappings): vanilla orders exhaustion/saturation/hunger
  * updates, then evaluates natural regen. The <strong>fast</strong> saturation-driven branch (10-tick cadence when hurt)
  * normally requires {@code food >= 20} plus saturation; a <strong>slower</strong> branch covers roughly {@code food >= 18}.
  * <p>
@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public abstract class FoodDataMixin {
 
     @ModifyConstant(method = "tick", constant = @Constant(intValue = 20))
-    private int saturationRegen$replaceFullFoodBarThresholdForSaturationRegen(int original, ServerPlayer player) {
+    private int saturationRegen$replaceFullFoodBarThresholdForSaturationRegen(int original, Player player) {
         if (player.level().isClientSide()) {
             return original;
         }

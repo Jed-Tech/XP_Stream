@@ -14,7 +14,7 @@ This repository builds and maintains multiple Minecraft mods from one Gradle wor
 
 Design notes, publishing, and internal docs live under [Docs/](Docs/).
 
-On the dedicated `1.21.1` support branch, the branch plan and phase handoff docs live under [Docs/_Repo/Specs/1.21.1_plan/](Docs/_Repo/Specs/1.21.1_plan/).
+On the dedicated `1.21.1` support branch, the archived branch plan and phase handoff docs live under [Docs/_Repo/Archive/1.21.1_plan/](Docs/_Repo/Archive/1.21.1_plan/).
 
 ---
 

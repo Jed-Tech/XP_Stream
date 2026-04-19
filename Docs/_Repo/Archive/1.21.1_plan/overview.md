@@ -1,5 +1,7 @@
 # 1.21.1 Support Plan Overview
 
+**Closeout (2026-04-19):** Planning work for this line is complete; this package was moved from `Docs/_Repo/Specs/1.21.1_plan/` to `Docs/_Repo/Archive/1.21.1_plan/` for retention.
+
 This document defines the high-level goals, scope, and phase structure for bringing the current multi-mod workspace to a dedicated `1.21.1` support line.
 
 This overview is intentionally non-technical. Detailed implementation plans will live in separate phase documents.
