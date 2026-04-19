@@ -1,11 +1,11 @@
 # Broad Minecraft family compatibility — policy template
 
-**How to use:** For each new Minecraft release line, substitute placeholders below (example values for **26.1** are in parentheses). Keep this doc as the standing policy; pair it with a **per-version** checklist from `Docs/NeoForge_UpdatePlan_Template.md` or a release-specific plan (e.g. `Docs/26.1_final.md`).
+**How to use:** For each new Minecraft release line, substitute placeholders below (examples for **26.1** on `main` and **1.21.1** on `monorepo/1.21.1`). Keep this doc as the standing policy; pair it with a **per-version** checklist from `Docs/NeoForge_UpdatePlan_Template.md` or a release-specific plan (e.g. `Docs/26.1_final.md`).
 
-| Placeholder | Meaning | Example (26.1) |
-|-------------|---------|----------------|
-| **`[MC_FAMILY]`** | Game version prefix used in NeoForge’s broad Minecraft range | `26.1` → range lower bound `26.1-` |
-| **`[FABRIC_MC_FLOOR]`** | Earliest Minecraft version string you accept on Fabric (semver string in `fabric.mod.json`) | `>=26.1-alpha.2` |
+| Placeholder | Meaning | Example (26.1) | Example (1.21.1 branch) |
+|-------------|---------|----------------|---------------------------|
+| **`[MC_FAMILY]`** | Game version prefix used in NeoForge’s broad Minecraft range | `26.1` → range lower bound `26.1-` | e.g. `[1.21.1,)` via **`minecraft_version_range`** in `gradle.properties` |
+| **`[FABRIC_MC_FLOOR]`** | Earliest Minecraft version string you accept on Fabric (semver string in `fabric.mod.json`) | `>=26.1-alpha.2` | e.g. `>=1.21.1` |
 | **`[MOD]`** | Mod id under `mods/` | `xp_stream`, `saturation_regen` |
 
 ---
@@ -18,11 +18,9 @@ The **whole mod** (common code + Fabric + NeoForge jars) should declare **broad 
 
 ## Key policy
 
-1. **NeoForge — `minecraft` dependency:** use an **open-ended family** lower bound, not a snapshot-only floor:  
-   **`versionRange = "[[MC_FAMILY]-,)"`**  
-   Example: `[MC_FAMILY]` = `26.1` → `"[26.1-,)"`.
+1. **NeoForge — `minecraft` dependency:** use an **open-ended** lower bound appropriate to the release line (often a family prefix or a concrete floor). In this repo, the value is expanded from **`minecraft_version_range`** in root **`gradle.properties`** (e.g. `[26.1-,)` on `main`, `[1.21.1,)` on the `1.21.1` support branch unless you widen after testing).
 
-2. **NeoForge — `neoforge` dependency:** use a **broad runtime floor** in `neoforge.mods.toml`, **not** the same string as the ModDevGradle compile pin. In this repo, **`versionRange = "[${neoforge_dependency_minimum},)"`** with **`neoforge_dependency_minimum`** in root **`gradle.properties`** (e.g. `26.1.0` for the 26.1 line). **`neoforge_version`** stays the **exact** NeoForge you compile against; it must not be reused for `[[dependencies]]` on `neoforge` or players on older 26.1.x NeoForge builds will be rejected.
+2. **NeoForge — `neoforge` dependency:** use a **broad runtime floor** in `neoforge.mods.toml`, **not** the same string as the ModDevGradle compile pin. In this repo, **`versionRange = "[${neoforge_dependency_minimum},)"`** with **`neoforge_dependency_minimum`** in root **`gradle.properties`** (e.g. `26.1.0` for the 26.1 line, **`21.1.0`** for the NeoForge **21.1.x** Minecraft 1.21.1 line). **`neoforge_version`** stays the **exact** NeoForge you compile against; it must not be reused for `[[dependencies]]` on `neoforge` or players on older patch builds will be rejected.
 
 3. **Fabric — `minecraft` dependency:** use a **low, stable floor** (`[FABRIC_MC_FLOOR]`) so pre/RC/GA builds stay accepted unless you deliberately tighten after testing. Prefer the simplest range Fabric accepts; avoid over-fitting one pre-release label.
 

@@ -43,7 +43,12 @@ public abstract class ExperienceOrbMixin {
         XpStreamConfig config = XpStreamConfig.get();
         
         // Skip if burst is disabled
-        if (config.getMaxBurstOrbs() <= 0) return;
+        if (config.getMaxBurstOrbs() <= 0) {
+            if (config.isDebug()) {
+                System.out.println("[XP_Stream] Mixin active but maxBurstOrbs is 0, skipping burst pickup.");
+            }
+            return;
+        }
         
         // Server-side only
         if (!(player.level() instanceof ServerLevel serverLevel)) return;
@@ -90,9 +95,5 @@ public abstract class ExperienceOrbMixin {
         }
     }
 }
-
-
-
-
 
 

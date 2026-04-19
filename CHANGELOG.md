@@ -1,9 +1,18 @@
 # Changelog
 
-All notable changes to the **XP_Stream repository** (workspace, tooling, shared docs — not individual mod releases) are documented in this file. Per-mod release notes live under `mods/<mod_id>/CHANGELOG.md`.
+All notable changes to the **XP_Stream repository** (workspace, tooling, shared docs - not individual mod releases) are documented in this file. Per-mod release notes live under `mods/<mod_id>/CHANGELOG.md`.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2026-04-18]
+
+### Changed (1.21.1 branch - Phase 1 shared workspace retarget)
+- Retargeted shared pins to **Minecraft 1.21.1**: Fabric Loader **0.19.2**, `settings.gradle` uses **`fabric-loom-remap` 1.15.5** with **official Mojang mappings** in each Fabric `build.gradle`, Fabric API pin **0.116.11+1.21.1**, NeoForge **21.1.226** (ModDevGradle **2.0.141**), and **`neoforge_dependency_minimum=21.1.0`**.
+- Root Java toolchain set to **21** (from 25 on `main`).
+- Loader metadata and publish fallbacks updated so the branch identity is **1.21.1**, not **26.1.x**.
+- Docs updated so `main` vs `monorepo/1.21.1` toolchain differences are clear.
+
+---
 
 ## [2026-04-11]
 

@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [Unreleased]
+
+### Changed (branch `monorepo/1.21.1`)
+
+- **Fabric (Phase 4a) / Minecraft 1.21.1:** Natural-regen behavior matches the modern contract on official Mojang mappings: `FoodData#tick(ServerPlayer)` fast-branch threshold via `@ModifyConstant`, configurable `regenHungerPenaltyLevel`, `naturalRegeneration` gamerule unchanged. Mixin applies on the **logical server** only (no client-side constant replacement).
+- **NeoForge (Phase 4b) / Minecraft 1.21.1:** Same `FoodDataMixin` logic and logical-server guard as Fabric — full loader parity for `saturation_regen` on this branch.
+- README: branch pointer for `monorepo/1.21.1`.
+
+---
+
 ## [0.2.1] - 2026-04-12
 
 ### Fixed

@@ -1,5 +1,5 @@
 plugins {
-    id "net.fabricmc.fabric-loom"
+    id "net.fabricmc.fabric-loom-remap"
     id "maven-publish"
 }
 
@@ -9,7 +9,9 @@ base {
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    mappings loom.officialMojangMappings()
+
+    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
     implementation project(":mods:saturation_regen:common")
     implementation "com.google.code.gson:gson:2.10.1"
 }

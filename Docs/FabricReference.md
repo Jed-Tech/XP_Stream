@@ -14,7 +14,8 @@ Do not treat this file as a pinned version matrix. Check the current branch file
 
 ## Current Fabric Shape in This Repo
 
-- Fabric uses unobfuscated mappings on the active branch.
+- On **`main`**, Fabric uses **unobfuscated** game jars (no Loom remap) with `net.fabricmc.fabric-loom`.
+- On the **`monorepo/1.21.1`** line, Fabric uses **official Mojang mappings** via `net.fabricmc.fabric-loom-remap` and `mappings loom.officialMojangMappings()` (obfuscated game through 1.21.11).
 - Fabric build logic lives under `mods/<mod_id>/fabric/`.
 - Fabric publish logic may live in a separate `publishFabric` project.
 - `just` is the preferred entrypoint for build and run commands.
@@ -74,7 +75,7 @@ If Fabric publishing breaks:
 
 ## Publishing Note
 
-For `xp_stream`, Fabric CurseForge publishing is currently a manual publication path rather than the plugin's implicit Fabric Loom integration. That is intentional for the current unobfuscated setup.
+For `xp_stream`, Fabric CurseForge publishing may use a manual path depending on loader setup; confirm against `mods/xp_stream/publishFabric/build.gradle` on your branch.
 
 See:
 

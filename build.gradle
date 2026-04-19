@@ -26,7 +26,7 @@ allprojects {
             }
         }
         // Branch-scoped versions (loader build scripts read project.minecraft_version etc.)
-        ["minecraft_version", "fabric_loader_version", "fabric_api_version", "neoforge_version", "neoforge_dependency_minimum", "moddevgradle_version"].each { key ->
+        ["minecraft_version", "minecraft_version_range", "fabric_loader_version", "fabric_api_version", "neoforge_version", "neoforge_dependency_minimum", "moddevgradle_version"].each { key ->
             def v = rootProject.findProperty(key)
             if (v != null) project.ext.set(key, v)
         }
@@ -39,10 +39,10 @@ allprojects {
 subprojects {
     apply plugin: 'java'
     java {
-        toolchain { languageVersion = JavaLanguageVersion.of(25) }
+        toolchain { languageVersion = JavaLanguageVersion.of(21) }
         withSourcesJar()
     }
-    tasks.withType(JavaCompile).configureEach { options.release = 25 }
+    tasks.withType(JavaCompile).configureEach { options.release = 21 }
 }
 
 // --- Per-mod publish tasks (Modrinth + CurseForge, one file per version per loader) ---

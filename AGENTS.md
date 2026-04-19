@@ -33,6 +33,7 @@
 
 ## Environment
 - On tool failure, check (`--version`) then stop and inform the user.
+- **Java:** `monorepo/1.21.1` targets **Java 21** (Gradle toolchain). `main` (26.1.x) may target a newer JDK; see root `build.gradle` / `gradle.properties` on the checked-out branch.
 
 ## Basic Commands
 - List commands: `just`

@@ -1,5 +1,9 @@
 # NeoForge Support Plan — XP_Stream
 
+## Branch note (`monorepo/1.21.1`)
+
+On the **1.21.1** support branch, NeoForge uses the **21.1.x** line (ModDevGradle) with **`neoforge_version`** pinned in root **`gradle.properties`**. Fabric on the same branch uses **official Mojang mappings** via Loom remap, so mixin **method strings** should be validated against **Mojmap** names for that game version—not Yarn.
+
 ## Overview
 
 This document outlines the plan for adding NeoForge support to XP_Stream while maintaining a clean, maintainable multi-loader architecture. The goal is to support both Fabric and NeoForge without creating maintenance nightmares.
@@ -18,9 +22,9 @@ This isolation prevents updates to one loader from breaking the other.
 - Each loader has its own mixin config file (e.g., `xp_stream.fabric.mixins.json` and `xp_stream.neoforge.mixins.json`)
 
 ### ✅ Mapping Name Differences Are the Real Gotcha
-- Fabric uses **Yarn mappings** (e.g., `onPlayerCollision`)
-- NeoForge uses **MCP/NeoForm mappings** (method names may differ)
-- **Assume mixin `method = "..."` strings will differ** between Yarn and NeoForge mappings
+- **`main` (26.1+):** Fabric uses **unobfuscated Mojmap** in dev; names usually align with vanilla-style references.
+- **`monorepo/1.21.1`:** Fabric uses **official Mojang mappings** via Loom remap; NeoForge uses **NeoForm** — verify mixin targets per loader.
+- **Assume mixin `method = "..."` strings can differ** between Fabric and NeoForge when mappings differ
 - Plan to keep **separate tiny mixin classes per loader** if necessary, delegating to shared helper logic in `common/`
 - The *algorithm* stays in `common/`, only the *mixin hooks* are loader-specific
 

@@ -4,6 +4,10 @@ This document defines the high-level goals, scope, and phase structure for bring
 
 This overview is intentionally non-technical. Detailed implementation plans will live in separate phase documents.
 
+Branch assumptions: [branch_assumptions.md](branch_assumptions.md)
+
+Implementation uses the git branch **`monorepo/1.21.1`** (named in Phase 0).
+
 ---
 
 ## Summary
@@ -65,16 +69,18 @@ Using `main` as the base gives us the right long-term project shape immediately.
 
 ## Sequencing Strategy
 
-The work will be organized by phase, with one shared branch setup phase first, then mod-focused delivery.
+The work will be organized as one branch-foundation phase, one shared workspace-retarget phase, then mod-focused delivery, followed by final cleanup and validation.
 
 Recommended execution order:
 
-1. Establish the `1.21.1` branch and shared branch-level groundwork
+0. Establish the branch foundation and shared project direction
+1. Retarget the shared workspace for `1.21.1`
 2. Complete `xp_stream` for Fabric
 3. Complete `xp_stream` for NeoForge
-4. Complete `saturation_regen` for Fabric
-5. Complete `saturation_regen` for NeoForge
-6. Finish branch-wide cleanup, validation, and release readiness review
+4a. Complete `saturation_regen` for Fabric
+4b. Complete `saturation_regen` for NeoForge
+5. Finish branch-wide cleanup and documentation alignment
+6. Finish validation and release-readiness review
 
 This order keeps one mod in focus at a time while still moving each mod to full loader parity before shifting attention.
 
@@ -82,21 +88,37 @@ This order keeps one mod in focus at a time while still moving each mod to full 
 
 ## Phase Overview
 
-### Phase 1: Branch Foundation
+### Phase 0: Branch Foundation
 
 Define the branch, confirm the overall target, and prepare the shared `1.21.1` workspace direction.
 
-### Phase 2: XP Stream
+### Phase 1: Shared Workspace Retarget
 
-Bring `xp_stream` to `1.21.1`, including the newer Vanilla Pickup behavior, and complete both loaders.
+Prepare the common branch-level workspace so later mod-specific work can proceed on a dedicated `1.21.1` line.
 
-### Phase 3: Saturation Regen
+### Phase 2: XP Stream Fabric
 
-Bring `saturation_regen` to `1.21.1` and complete both loaders.
+Bring `xp_stream` to `1.21.1` on Fabric, including the newer Vanilla Pickup behavior.
 
-### Phase 4: Branch Cleanup and Validation
+### Phase 3: XP Stream NeoForge
 
-Make sure the branch is understandable, internally consistent, and ready for future release work.
+Bring `xp_stream` to `1.21.1` on NeoForge and complete loader parity for that mod.
+
+### Phase 4a: Saturation Regen Fabric
+
+Bring `saturation_regen` to `1.21.1` on Fabric.
+
+### Phase 4b: Saturation Regen NeoForge
+
+Bring `saturation_regen` to `1.21.1` on NeoForge and complete loader parity for that mod.
+
+### Phase 5: Branch Cleanup
+
+Make sure the branch is understandable and internally consistent once both mods are in place.
+
+### Phase 6: Validation and Release Readiness
+
+Confirm the branch is validated and ready for later release planning.
 
 Separate documents will define the detailed goals, tasks, and acceptance criteria for each phase.
 

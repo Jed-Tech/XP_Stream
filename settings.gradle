@@ -3,9 +3,10 @@ pluginManagement {
         maven { url = "https://maven.fabricmc.net/" }
         gradlePluginPortal()
     }
-    // Loom version: keep pinned as literal per branch; do not move to version catalog yet.
+    // Loom version: keep pinned as literal per branch (must stay in sync with Gradle output / Fabric docs); do not move to version catalog yet.
+    // fabric-loom-remap = obfuscated MC through 1.21.11; fabric-loom = unobfuscated (e.g. 26.1+).
     plugins {
-        id("net.fabricmc.fabric-loom") version "1.15.5"
+        id("net.fabricmc.fabric-loom-remap") version "1.15.5"
     }
 }
 

@@ -2,20 +2,20 @@
 
 **Faster XP pickup. Same vanilla feel.**
 
-Absorbs XP orbs faster without clumping, while preserving the magic feel and core mechanics of normal XP collection. All the orbs with no loss of XP!
+Absorbs XP orbs faster without clumping, while preserving the magic feel and core mechanics of normal XP collection. All the orbs with no loss of XP.
 
 ---
 
-## ✨ Why XP Stream?
+## Why XP Stream
 
 Large XP drops in vanilla pile up and take too long to absorb.
 XP Stream removes the pickup delay so XP flows smoothly toward players, without changing how it looks or behaves.
 
-It feels like vanilla Minecraft… just smoother.
+It feels like vanilla Minecraft... just smoother.
 
 ---
 
-## ⚙️ What It Does
+## What It Does
 
 - Faster XP absorption for large drops
 - Preserves vanilla orb motion, sounds, and Mending
@@ -26,7 +26,7 @@ It feels like vanilla Minecraft… just smoother.
 
 ---
 
-## 🧠 Vanilla-Plus Design
+## Vanilla-Plus Design
 
 XP Stream is **not** an orb-clumping mod.
 
@@ -34,14 +34,14 @@ Instead of changing XP behavior, it adjusts *how fast* orbs are collected, keepi
 
 ---
 
-## 🏭 Great for XP Farms
+## Great for XP Farms
 
 Ideal for mob farms, spawners, boss fights, and XP farms.
 Fewer lingering orbs means a **performance improvement** over vanilla.
 
 ---
 
-## 🔧 Configuration (Optional)
+## Configuration (Optional)
 
 XP Stream works out of the box, but there are options for advanced configuration:
 
@@ -59,9 +59,15 @@ Config file: `config/xp_stream.json`
 
 ---
 
-
-## 📦 Installation
+## Installation
 
 1. Install Fabric or NeoForge Loader
 2. Drop the mod jar into your `mods` folder
 3. Start the server
+
+---
+
+## Minecraft Versions (Repo Branches)
+
+- **`main`** - current development targets the latest supported Minecraft line in that branch (see root `gradle.properties` and mod changelogs).
+- **`monorepo/1.21.1`** - dedicated **Minecraft 1.21.1** support for **Fabric** and **NeoForge** (see repository `CHANGELOG.md` for workspace notes).

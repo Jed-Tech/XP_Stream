@@ -14,12 +14,14 @@ This repository builds and maintains multiple Minecraft mods from one Gradle wor
 
 Design notes, publishing, and internal docs live under [Docs/](Docs/).
 
+On the dedicated `1.21.1` support branch, the branch plan and phase handoff docs live under [Docs/_Repo/Specs/1.21.1_plan/](Docs/_Repo/Specs/1.21.1_plan/).
+
 ---
 
 ## Requirements
 
-- **Java** -- use the toolchain configured by this repo (see `just doctor` and Gradle).
-- **Git** -- for version control and release tags.
+- **Java** - use the toolchain configured by this repo (see `just doctor` and Gradle).
+- **Git** - for version control and release tags.
 
 ---
 
@@ -38,8 +40,8 @@ See [Docs/justfile.md](Docs/justfile.md) for more detail.
 
 ## Changelogs
 
-- **Repository / workspace** -- [CHANGELOG.md](CHANGELOG.md) (tooling, layout, shared infrastructure).
-- **XP Stream** -- [mods/xp_stream/CHANGELOG.md](mods/xp_stream/CHANGELOG.md).
-- **Saturation Regen** -- [mods/saturation_regen/CHANGELOG.md](mods/saturation_regen/CHANGELOG.md).
+- **Repository / workspace** - [CHANGELOG.md](CHANGELOG.md) (tooling, layout, shared infrastructure).
+- **XP Stream** - [mods/xp_stream/CHANGELOG.md](mods/xp_stream/CHANGELOG.md).
+- **Saturation Regen** - [mods/saturation_regen/CHANGELOG.md](mods/saturation_regen/CHANGELOG.md).
 
 Release automation and publishing are documented in [Docs/publishing.md](Docs/publishing.md), [Docs/release_checklist.md](Docs/release_checklist.md), and [Docs/github_release.md](Docs/github_release.md).

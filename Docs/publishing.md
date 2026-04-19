@@ -73,10 +73,10 @@ This is separate from Maven publishing. Maven publishing can still exist for loc
 
 ## Version Names
 
-Modrinth and CurseForge version names are set per loader, for example:
+Modrinth and CurseForge version names are set per loader, for example (substitute the **Minecraft line** you built against, e.g. `26.1.2` on `main`, `1.21.1` on `monorepo/1.21.1`):
 
-- `XP_Stream 1.1.1 (Fabric) for 26.1.1`
-- `XP_Stream 1.1.1 (NeoForge) for 26.1.1`
+- `XP_Stream 1.1.1 (Fabric) for 1.21.1`
+- `XP_Stream 1.1.1 (NeoForge) for 1.21.1`
 
 Each Modrinth version should have exactly one file: the Fabric JAR or the NeoForge JAR for that loader-specific release entry.
 
