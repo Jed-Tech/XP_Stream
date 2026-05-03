@@ -53,5 +53,8 @@ Thumbs.db
 *.bak
 *.cache
 
+# SPAR-kit: machine-local tool registry (do not commit)
+.spar-kit/.local/
+
 # Agent / local research: extracted Minecraft sources (do not commit)
 .agent_tmp/
