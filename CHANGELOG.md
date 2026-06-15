@@ -4,6 +4,19 @@ All notable changes to the **XP_Stream repository** (workspace, tooling, shared 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+### Changed
+- Began monorepo Minecraft `26.2` release-readiness work for `xp_stream` and `saturation_regen`.
+- Updated the Fabric compile pins for a release-today target: Minecraft `26.2-rc-2`, Fabric Loader `0.19.3`, Fabric Loom `1.16-SNAPSHOT`, and Fabric API `0.152.0+26.2`.
+- Set the Fabric compatibility floor for both mods to `>=26.2-pre-1`, which includes `26.2 Pre-release 1` and later `26.2` builds while excluding earlier `26.2` snapshots.
+- Documented that NeoForge `26.2` support remains pending official upstream `neoforge` `26.2` artifacts; no NeoForge `26.2` compile-pin change has been made yet.
+
+### Compatibility (release target)
+- **XP Stream / Fabric:** release build now targets Minecraft `26.2-rc-2` and accepts `26.2-pre-1` and later `26.2` builds
+- **Saturation Regen / Fabric:** release build now targets Minecraft `26.2-rc-2` and accepts `26.2-pre-1` and later `26.2` builds
+- **NeoForge:** `26.2` support intentionally deferred until official `neoforge` `26.2` artifacts exist and are smoke-tested
+
 
 ## [2026-04-11]
 

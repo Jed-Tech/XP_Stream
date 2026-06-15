@@ -20,7 +20,9 @@ def curseforgeProjectId = parentProps.getProperty("curseforge_project_id", "").t
 def mcVersion = rootProject.findProperty("minecraft_version") ?: "26.1-snapshot-7"
 
 def deriveCurseForgeMinecraftVersion = { String version ->
-    def matcher = (version =~ /^(\d+)\.(\d+)(?:\.(\d+))?$/)
+    // CurseForge game versions are family-level labels, so snapshot/pre/rc suffixes map
+    // to the matching base Minecraft version rather than being rejected during config.
+    def matcher = (version =~ /^(\d+)\.(\d+)(?:\.(\d+))?(?:[-.].+)?$/)
     if (!matcher.matches()) {
         throw new GradleException("Unsupported CurseForge Minecraft version format: ${version}")
     }
