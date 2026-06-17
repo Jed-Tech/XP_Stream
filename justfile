@@ -79,9 +79,9 @@ run-client mod="xp_stream" loader="fabric":
 run-server mod="xp_stream" loader="fabric":
   ./gradlew.bat ":mods:{{mod}}:{{loader}}:runServer"
 
-# Loader: default `all` = Fabric + NeoForge (four upload tasks). Use `fabric` or `neoforge` for one loader.
-publish mod="xp_stream" loader="all":
-  powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\publish-run.ps1 -Mod "{{mod}}" -Loader "{{loader}}"
+# Loader: default `all` = Fabric + NeoForge. Platform: default `all` = Modrinth + CurseForge.
+publish mod="xp_stream" loader="all" platform="all":
+  powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\publish-run.ps1 -Mod "{{mod}}" -Loader "{{loader}}" -Platform "{{platform}}"
 
 github-release mod="xp_stream":
   powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\github-release.ps1 -Mod {{mod}}
