@@ -29,8 +29,9 @@ def deriveCurseForgeMinecraftVersion = { String version ->
 
     def one = matcher.group(1)
     def major = matcher.group(2)
-    def minor = matcher.group(3) ?: "0"
-    new GameVersion("minecraft-${one}-${major}", "${one}-${major}-${minor}")
+    def patch = matcher.group(3)
+    def slug = patch ? "${one}-${major}-${patch}" : "${one}-${major}"
+    new GameVersion("minecraft-${one}-${major}", slug)
 }
 
 def getChangelogSection = {
