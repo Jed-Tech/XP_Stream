@@ -5,16 +5,14 @@ All notable changes to **XP Stream** (the mod) are documented in this file. Entr
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-
-## [1.1.4] - 2026-06-14
+## [1.1.5] - 2026-06-16
 
 ### Changed
-- Fabric support is ready for the Minecraft `26.2` update line.
+- Updated XP Stream for Minecraft `26.2`.
 
-### Compatibility (release target)
-- **Fabric:** works with Minecraft `26.2 Pre-release 1` and later `26.2` builds, including the current release candidates
-- **NeoForge:** `26.2` support is still pending
+### Compatibility
+- **Fabric:** Minecraft `26.2`
+- **NeoForge:** Minecraft `26.2`, NeoForge `26.2.0.1-beta`
 
 ## [1.1.3] - 2026-04-12
 
